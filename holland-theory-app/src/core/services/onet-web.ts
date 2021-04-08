@@ -1,5 +1,5 @@
 class OnetWebService {
-  static MAIN_URL: string = 'https://services.onetcenter.org/'
+  static MAIN_URL: string = 'https://services.onetcenter.org/';
   static ERROR_MESSAGES = {
     FAILED_TO_FETCH: 'Failed to fetch',
     DEFAULT_ERROR: 'Error',
@@ -11,7 +11,7 @@ class OnetWebService {
       username: string,
     },
     baseURL: string,
-  }
+  };
 
   constructor(userName: string) {
     this.userName = userName;
@@ -34,6 +34,7 @@ class OnetWebService {
 
   public async makeRequest<T>(path: string = '', query: string = ''): Promise<{ error?: string, data?: T }> {
     const url = `${this.config.baseURL}${path}?client=${this.userName}&${query}`;
+    console.log('url', url);
     try {
       const response = await fetch(url, {
         method: 'GET',
