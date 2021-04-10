@@ -7,7 +7,9 @@ export enum OccupationCategories {
   Conventional = 'Conventional',
 }
 
-export const OccupationColors = {
+export const OccupationColors: {
+  [prop: string]: string,
+} = {
   Realistic: '#1F77B4',
   Investigative: '#FABC05',
   Artistic: '#D62727',

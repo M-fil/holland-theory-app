@@ -1,0 +1,9 @@
+.results-module {
+  &__wrapper {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  &__chart-container {}
+}

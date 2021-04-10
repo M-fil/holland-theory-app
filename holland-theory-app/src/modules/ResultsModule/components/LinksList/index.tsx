@@ -1,25 +1,36 @@
-import React, { useContext } from 'react';
+import './styles.scss';
+import React, { useContext, useMemo } from 'react';
 
 import { StoreContext } from '../../../../core/store';
+import { OccupationColors } from '../../../../core/constants/occupation';
 
-const LinksList: React.FC = () => {
+interface LinksListProps {
+  colors?: { [props: string]: string };
+}
+
+const LinksList: React.FC<LinksListProps> = ({
+  colors = OccupationColors,
+}) => {
   const { results } = useContext(StoreContext).state;
+  const resultsList = useMemo(() => Object.entries(results), [results]);
 
   return (
-    <div className="results-module__links">
-      {Object.entries(results).map(([occupationKey, resultValue]) => (
-        <a
+    <div className='results-links'>
+      {resultsList.map(([occupationKey, resultValue]) => (
+        <div
           key={occupationKey}
-          href="/"
-          className="results-module__link"
+          className='results-links__link result-link-item'
+          style={{
+            backgroundColor: colors[occupationKey],
+          }}
         >
-          <span className="results-module__link-text">
+          <span className='result-link-item__text'>
             {occupationKey}
           </span>
-          <span className="results-module__link-number">
+          <span className='result-link-item__number'>
             {resultValue}
           </span>
-        </a>
+        </div>
       ))}
     </div>
   );
