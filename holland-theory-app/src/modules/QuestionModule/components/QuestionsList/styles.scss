@@ -1,0 +1,16 @@
+.questions-list {
+  overflow: hidden;
+  padding: 0 20px;
+
+  &__wrapper {
+    display: flex;
+    justify-content: space-between;
+    overflow: scroll;
+  }
+
+  &__item {
+    &:not(:last-child) {
+      margin-right: 20px;
+    }
+  }
+}

@@ -4,4 +4,5 @@ export interface QuestionEntity {
   index: number;
   text: string;
   area: OccupationCategory;
+  answerValue: number,
 }

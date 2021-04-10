@@ -38,9 +38,13 @@ export const getQuestions = async (): Promise<GetQuestionsResult | null> => {
       const nextQuestionsLink = (linksLength > 0 && !!nextLinkObject)
         ? nextLinkObject.href
         : '';
+      const questions = questionsList.map((questionItem) => ({
+        ...questionItem,
+        answerValue: -1,
+      }));
 
       return {
-        questions: questionsList,
+        questions,
         nextQuestionsLink,
         totalNumberOfQuestions: total,
         answerVariants: answersData.answer_option,

@@ -9,6 +9,7 @@ export interface State {
   totalNumberOfQuestions: number;
   answerVariants: AnswerEntity[];
   currentQuestionIndex: number;
+  nextQuestionIndex: number,
 }
 
 export const initialState: State = {
@@ -17,6 +18,7 @@ export const initialState: State = {
   totalNumberOfQuestions: 0,
   answerVariants: [],
   currentQuestionIndex: 0,
+  nextQuestionIndex: 0,
 };
 
 export const mainReducer = (state: State = initialState, action: MainActionType): State  => {
@@ -38,6 +40,29 @@ export const mainReducer = (state: State = initialState, action: MainActionType)
         ...state,
         currentQuestionIndex: action.payload.currentQuestionIndex,
       };
+    case QuestionsActionTypes.SetAnswerForQuestion: {
+      const { answerValue, questionIndex } = action.payload;
+      let targetQuestion = state.questions[questionIndex];
+      if (targetQuestion) {
+        targetQuestion = {
+          ...targetQuestion,
+          answerValue,
+        };
+      }
+      return {
+        ...state,
+      };
+    }
+    case QuestionsActionTypes.SetNextQuestionIndex: {
+      const isLastQuestion =  (state.currentQuestionIndex + 1) > state.totalNumberOfQuestions;
+
+      return {
+        ...state,
+        nextQuestionIndex: isLastQuestion
+          ? state.nextQuestionIndex
+          : state.nextQuestionIndex + 1,
+      };
+    }
     default:
       return state;
   }

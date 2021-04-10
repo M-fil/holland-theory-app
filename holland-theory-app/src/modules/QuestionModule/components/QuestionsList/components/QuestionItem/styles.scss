@@ -1,0 +1,49 @@
+$question-item-size: 80px;
+$question-item-border: 1px solid black;
+$question-item-active-border-width: 3px;
+$disabled-background: rgba(255, 255, 255, 0.6);
+
+.question-item {
+  cursor: pointer;
+  
+  width: $question-item-size;
+  min-width: $question-item-size;
+  height: $question-item-size;
+  border: $question-item-border;
+  padding: 10px;
+  overflow: hidden;
+
+  &_active {
+    border-width: $question-item-active-border-width;
+  }
+
+  &_disabled {
+    cursor: not-allowed;
+    position: relative;
+
+    &::after {
+      content: "";
+
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+
+      display: block;
+      background-color: $disabled-background;
+    }
+  }
+
+  &__text {
+    font-size: 2rem;
+    line-height: 2.5rem;
+
+    text-overflow: ellipsis;
+    max-width: 100%;
+    overflow: hidden;
+    display: block;
+    width: inherit;
+    height: inherit;
+  }
+}

@@ -5,6 +5,8 @@ export enum QuestionsActionTypes {
   SetQuestionsData = '[Questions] SetQuestionsData',
   SetQuestions = '[Questions] SetQuestions',
   SetCurrentQuestion = '[Questions] SetCurrentQuestion',
+  SetAnswerForQuestion = '[Questions] SetAnswerForQuestion',
+  SetNextQuestionIndex = '[Question] SetNextQuestionIndex',
 }
 
 export interface SetQuestionsDataActionType {
@@ -26,6 +28,17 @@ export interface SetCurrentQuestionActionType {
   payload: { currentQuestionIndex: number };
 }
 
+export interface SetAnswerForQuestionActionType {
+  type: QuestionsActionTypes.SetAnswerForQuestion,
+  payload: { answerValue: number, questionIndex: number },
+}
+
+export interface SetNextQuestionIndexActionType {
+  type: QuestionsActionTypes.SetNextQuestionIndex,
+}
+
 export type QuestionActionType = SetQuestionsDataActionType
   | SetQuestionsActionType
-  | SetCurrentQuestionActionType;
+  | SetCurrentQuestionActionType
+  | SetAnswerForQuestionActionType
+  | SetNextQuestionIndexActionType;

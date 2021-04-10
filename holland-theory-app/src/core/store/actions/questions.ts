@@ -9,7 +9,27 @@ export const setQuestionsDataAction = (
   payload: { nextQuestionsLink, totalNumberOfQuestions, answerVariants },
 });
 
-export const setQuestionsAction = (questions: QuestionEntity[]) => ({
+export const setQuestionsAction = (
+  questions: QuestionEntity[],
+): QuestionActionType => ({
   type: QuestionsActionTypes.SetQuestions,
   payload: { questions },
+});
+
+export const setCurrentQuestionIndexAction = (
+  currentQuestionIndex: number,
+): QuestionActionType => ({
+  type: QuestionsActionTypes.SetCurrentQuestion,
+  payload: { currentQuestionIndex }
+});
+
+export const setAnswerForQuestionAction = (
+  answerValue: number, questionIndex: number,
+): QuestionActionType => ({
+  type: QuestionsActionTypes.SetAnswerForQuestion,
+  payload: { answerValue, questionIndex },
+});
+
+export const setNextQuestionIndexAction = (): QuestionActionType => ({
+  type: QuestionsActionTypes.SetNextQuestionIndex,
 });

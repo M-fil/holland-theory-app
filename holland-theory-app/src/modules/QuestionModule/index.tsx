@@ -4,6 +4,7 @@ import { StoreContext } from '../../core/store';
 import * as QuestionActions from '../../core/store/actions/questions';
 import * as QuestionService from '../../core/services/questions';
 import CurrentQuestionBlock from './components/CurrentQuestionBlock';
+import QuestionsList from './components/QuestionsList';
 
 const QuestionModule: React.FC = () => {
   const { dispatch } = useContext(StoreContext);
@@ -26,6 +27,7 @@ const QuestionModule: React.FC = () => {
   return (
     <div>
       <CurrentQuestionBlock />
+      <QuestionsList />
     </div>
   );
 };
