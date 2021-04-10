@@ -1,4 +1,7 @@
+export type OccupationCategory = 'Realistic' | 'Investigative' | 'Artistic' | 'Social' | 'Enterprising' | 'Conventional';
+
 export interface QuestionEntity {
-  id: string;
+  index: number;
   text: string;
+  area: OccupationCategory,
 }
