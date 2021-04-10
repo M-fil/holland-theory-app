@@ -3,5 +3,5 @@ export type OccupationCategory = 'Realistic' | 'Investigative' | 'Artistic' | 'S
 export interface QuestionEntity {
   index: number;
   text: string;
-  area: OccupationCategory,
+  area: OccupationCategory;
 }

@@ -34,7 +34,6 @@ class OnetWebService {
 
   public async makeRequest<T>(path: string = '', query: string = ''): Promise<{ error?: string, data?: T }> {
     const url = `${this.config.baseURL}${path}?client=${this.userName}&${query}`;
-    console.log('url', url);
     try {
       const response = await fetch(url, {
         method: 'GET',
