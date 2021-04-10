@@ -1,8 +1,8 @@
-export type OccupationCategory = 'Realistic' | 'Investigative' | 'Artistic' | 'Social' | 'Enterprising' | 'Conventional';
+import { OccupationCategories } from '../constants/occupation';
 
 export interface QuestionEntity {
   index: number;
   text: string;
-  area: OccupationCategory;
+  area: OccupationCategories;
   answerValue: number,
 }

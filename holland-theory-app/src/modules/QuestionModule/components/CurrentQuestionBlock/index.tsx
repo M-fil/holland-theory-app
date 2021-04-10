@@ -7,10 +7,11 @@ import AnswersList from './components/AnswersList';
 import ProgressBar from './components/ProgressBar';
 import QuestionInfo from './components/QuestionInfo';
 import * as QuestionActions from '../../../../core/store/actions/questions';
+import * as ResultsActions from '../../../../core/store/actions/results';
 
 const CurrentQuestionBlock: React.FC = () => {
   const {
-    totalNumberOfQuestions, answerVariants, currentQuestionIndex, questions, nextQuestionIndex,
+    totalNumberOfQuestions, answerVariants, currentQuestionIndex, questions, nextQuestionIndex, results,
   } = useContext(StoreContext).state;
   const { dispatch } = useContext(StoreContext);
   const [t] = useTranslation();
@@ -24,8 +25,9 @@ const CurrentQuestionBlock: React.FC = () => {
       dispatch(QuestionActions.setNextQuestionIndexAction());
       dispatch(QuestionActions.setCurrentQuestionIndexAction(currentQuestionIndex + 1));
       dispatch(QuestionActions.setAnswerForQuestionAction(answer, currentQuestionIndex));
+      dispatch(ResultsActions.updateResultsAction(currentQuestion.area, answer));
     }
-  }, [dispatch, currentQuestionIndex, answer]);
+  }, [dispatch, currentQuestionIndex, answer, currentQuestion?.area]);
 
   const onAnswerValueChange = useCallback((answerValue: number) => {
     setAnswer(answerValue);
@@ -58,6 +60,7 @@ const CurrentQuestionBlock: React.FC = () => {
         answerVariants={answerVariants}
         handleSelectedValue={onAnswerValueChange}
         currentAnswerValue={currentAnswerValue}
+        currentQuestionArea={currentQuestion?.area}
       />
       <div className='current-question-block__button-block'>
         <button

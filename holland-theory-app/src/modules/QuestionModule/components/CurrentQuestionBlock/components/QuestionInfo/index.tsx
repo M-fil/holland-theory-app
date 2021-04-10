@@ -1,8 +1,8 @@
 import React from 'react';
-import { OccupationCategory } from '../../../../../../core/interfaces/question';
+import { OccupationCategories } from '../../../../../../core/constants/occupation';
 
 interface QuestionInfoProps {
-  occupationArea: OccupationCategory;
+  occupationArea: OccupationCategories;
   questionText: string;
 }
 

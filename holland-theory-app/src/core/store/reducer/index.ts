@@ -1,7 +1,9 @@
 import { QuestionEntity } from '../../interfaces/question';
 import { QuestionsActionTypes } from '../action-types/questions';
+import { ResultsActionTypes } from '../action-types/results';
 import { MainActionType } from '../action-types';
 import { AnswerEntity } from '../../interfaces/answer';
+import { OccupationCategories } from '../../constants/occupation';
 
 export interface State {
   questions: QuestionEntity[];
@@ -10,6 +12,9 @@ export interface State {
   answerVariants: AnswerEntity[];
   currentQuestionIndex: number;
   nextQuestionIndex: number,
+  results: {
+    [prop in OccupationCategories]: number;
+  },
 }
 
 export const initialState: State = {
@@ -19,6 +24,14 @@ export const initialState: State = {
   answerVariants: [],
   currentQuestionIndex: 0,
   nextQuestionIndex: 1,
+  results: {
+    Realistic: 0,
+    Investigative: 0,
+    Artistic: 0,
+    Social: 0,
+    Enterprising: 0,
+    Conventional: 0,
+  },
 };
 
 export const mainReducer = (state: State = initialState, action: MainActionType): State  => {
@@ -63,6 +76,18 @@ export const mainReducer = (state: State = initialState, action: MainActionType)
         nextQuestionIndex: isLastQuestion
           ? state.nextQuestionIndex
           : state.nextQuestionIndex + 1,
+      };
+    };
+    case ResultsActionTypes.UpdateResults: {
+      const { occupationKey, value } = action.payload;
+      const currentOccupationValue = state.results[occupationKey];
+
+      return {
+        ...state,
+        results: {
+          ...state.results,
+          [occupationKey]: currentOccupationValue + value,
+        },
       };
     }
     default:
