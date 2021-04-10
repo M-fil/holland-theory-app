@@ -16,15 +16,16 @@ const CurrentQuestionBlock: React.FC = () => {
   const [t] = useTranslation();
   const currentQuestion = useMemo(() => questions[currentQuestionIndex], [questions, currentQuestionIndex]);
   const [answer, setAnswer] = useState<number>(-1);
+  const currentAnswerValue = useMemo(() => !!currentQuestion ? currentQuestion.answerValue : -1, [currentQuestion]);
 
   const onConfirmAnswer = useCallback(() => {
-    const isAllowToSendAnswer = answer >= 0 && answer <= totalNumberOfQuestions;
+    const isAllowToSendAnswer = answer > 0;
     if (isAllowToSendAnswer) {
       dispatch(QuestionActions.setNextQuestionIndexAction());
       dispatch(QuestionActions.setCurrentQuestionIndexAction(currentQuestionIndex + 1));
       dispatch(QuestionActions.setAnswerForQuestionAction(answer, currentQuestionIndex));
     }
-  }, [dispatch, currentQuestionIndex, answer, totalNumberOfQuestions]);
+  }, [dispatch, currentQuestionIndex, answer]);
 
   const onAnswerValueChange = useCallback((answerValue: number) => {
     setAnswer(answerValue);
@@ -56,6 +57,7 @@ const CurrentQuestionBlock: React.FC = () => {
       <AnswersList
         answerVariants={answerVariants}
         handleSelectedValue={onAnswerValueChange}
+        currentAnswerValue={currentAnswerValue}
       />
       <div className='current-question-block__button-block'>
         <button

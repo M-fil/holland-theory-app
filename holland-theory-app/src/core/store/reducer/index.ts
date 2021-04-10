@@ -18,7 +18,7 @@ export const initialState: State = {
   totalNumberOfQuestions: 0,
   answerVariants: [],
   currentQuestionIndex: 0,
-  nextQuestionIndex: 0,
+  nextQuestionIndex: 1,
 };
 
 export const mainReducer = (state: State = initialState, action: MainActionType): State  => {
@@ -42,15 +42,17 @@ export const mainReducer = (state: State = initialState, action: MainActionType)
       };
     case QuestionsActionTypes.SetAnswerForQuestion: {
       const { answerValue, questionIndex } = action.payload;
-      let targetQuestion = state.questions[questionIndex];
-      if (targetQuestion) {
-        targetQuestion = {
-          ...targetQuestion,
+      const targetQuestions = state.questions;
+      if (targetQuestions[questionIndex]) {
+        targetQuestions[questionIndex] = {
+          ...targetQuestions[questionIndex],
           answerValue,
         };
       }
+
       return {
         ...state,
+        questions: targetQuestions,
       };
     }
     case QuestionsActionTypes.SetNextQuestionIndex: {

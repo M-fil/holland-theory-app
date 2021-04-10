@@ -14,7 +14,7 @@ const QuestionsList: React.FC = () => {
 
     if (target) {
       const targetIndex = Number(target.dataset.questionItemIndex);
-      const isItemDisabled = targetIndex > nextQuestionIndex;
+      const isItemDisabled = targetIndex > nextQuestionIndex - 1;
 
       if (!isItemDisabled) {
         dispatch(QuestionActions.setCurrentQuestionIndexAction(targetIndex));

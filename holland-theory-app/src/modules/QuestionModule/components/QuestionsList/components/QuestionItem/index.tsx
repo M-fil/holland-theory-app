@@ -13,7 +13,7 @@ const QuestionItem: React.FC<QuestionItemProps> = ({
   questionNumber, text, index,
 }) => {
   const { nextQuestionIndex, currentQuestionIndex } = useContext(StoreContext).state;
-  const isItemDisabled = useMemo(() => index > nextQuestionIndex, [index, nextQuestionIndex]);
+  const isItemDisabled = useMemo(() => index > nextQuestionIndex - 1, [index, nextQuestionIndex]);
   const activeClassName = useMemo(
     () => (currentQuestionIndex === index) ? 'question-item_active' : '',
     [index, currentQuestionIndex],
