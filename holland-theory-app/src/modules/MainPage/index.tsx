@@ -1,11 +1,11 @@
 import React from 'react';
 
-import QuestionsModule from '../QuestionModule';
+import ResultsModule from '../ResultsModule';
 
 const MainPage: React.FC = () => {
   return (
     <main>
-      <QuestionsModule />
+      <ResultsModule />
     </main>
   );
 };

@@ -25,12 +25,12 @@ export const initialState: State = {
   currentQuestionIndex: 0,
   nextQuestionIndex: 1,
   results: {
-    Realistic: 0,
-    Investigative: 0,
-    Artistic: 0,
-    Social: 0,
-    Enterprising: 0,
-    Conventional: 0,
+    Realistic: 5,
+    Investigative: 10,
+    Artistic: 20,
+    Social: 1,
+    Enterprising: 2,
+    Conventional: 1,
   },
 };
 
