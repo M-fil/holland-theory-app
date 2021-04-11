@@ -15,8 +15,4 @@ export const DefaultSections: SectionEntity[] = [
     key: 'job-zones',
     index: SectionIndexes.JobZones,
   },
-  {
-    key: 'jobs-list',
-    index: SectionIndexes.JobsList,
-  },
 ];

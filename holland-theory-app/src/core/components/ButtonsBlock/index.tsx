@@ -1,5 +1,5 @@
 import styles from './styles.module.scss';
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback, useContext, useMemo } from 'react';
 
 import ButtonItem from '../ButtonItem';
 import i18n from '../../i18n';
@@ -25,6 +25,9 @@ const ButtonsBlock: React.FC<ButtonsBlockProps> = ({
   onNext = mockFn, onPrev = mockFn, titles = DEFAULT_TITLES,
 }) => {
   const { dispatch } = useContext(StoreContext);
+  const { sections, currentSectionIndex } = useContext(StoreContext).state.resultsSections;
+  const isPrevButtonDisabled = useMemo(() => currentSectionIndex === 0, [currentSectionIndex]);
+  const isNextButtonDisabled = useMemo(() => currentSectionIndex === sections.length - 1, [currentSectionIndex, sections]);
 
   const onNextButtonClick = useCallback(() => {
     dispatch(ResultsActions.updateCurrentResultsSectionIndex(null, 'next'));
@@ -42,10 +45,16 @@ const ButtonsBlock: React.FC<ButtonsBlockProps> = ({
         <ButtonItem
           title={titles.prev}
           onClick={onPrevButtonClick}
+          otherButtonProps={{
+            disabled: isPrevButtonDisabled,
+          }}
         />
         <ButtonItem
           title={titles.next}
           onClick={onNextButtonClick}
+          otherButtonProps={{
+            disabled: isNextButtonDisabled,
+          }}
         />
       </div>
     </div>

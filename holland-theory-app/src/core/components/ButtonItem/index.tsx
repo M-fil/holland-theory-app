@@ -1,10 +1,10 @@
-import React, { HTMLAttributes, MouseEvent } from 'react';
+import React, { DetailedHTMLProps, ButtonHTMLAttributes, MouseEvent } from 'react';
 import styles from './styles.module.scss';
 
 interface ButtonItemProps {
   title: string | HTMLElement;
   onClick: (event: MouseEvent<HTMLButtonElement>) => void;
-  otherButtonProps?: HTMLAttributes<HTMLButtonElement>;
+  otherButtonProps?: DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
   extraClassName?: string;
 }
 
