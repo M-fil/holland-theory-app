@@ -2,6 +2,7 @@ import { OccupationCategories } from "../../constants/occupation";
 
 export enum ResultsActionTypes {
   UpdateResults = '[Results] UpdateResults',
+  SetIsTestFinished = '[Results] SetIsTestFinished',
 }
 
 export interface UpdateResultsActionType {
@@ -9,4 +10,10 @@ export interface UpdateResultsActionType {
   payload: { occupationKey: OccupationCategories, value: number },
 }
 
-export type ResultActionType = UpdateResultsActionType;
+export interface SetIsTestFinishedActionType {
+  type: ResultsActionTypes.SetIsTestFinished,
+  payload: { isFinished: boolean },
+}
+
+export type ResultActionType = UpdateResultsActionType
+  | SetIsTestFinishedActionType;

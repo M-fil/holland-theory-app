@@ -1,4 +1,4 @@
-import './styles.module.scss';
+import './styles.scss';
 import React, { useContext, useMemo, useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -11,7 +11,7 @@ import * as ResultsActions from '../../../../core/store/actions/results';
 
 const CurrentQuestionBlock: React.FC = () => {
   const {
-    totalNumberOfQuestions, answerVariants, currentQuestionIndex, questions, nextQuestionIndex, results,
+    totalNumberOfQuestions, answerVariants, currentQuestionIndex, questions, nextQuestionIndex,
   } = useContext(StoreContext).state;
   const { dispatch } = useContext(StoreContext);
   const [t] = useTranslation();

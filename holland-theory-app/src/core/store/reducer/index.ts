@@ -15,6 +15,7 @@ export interface State {
   results: {
     [prop in OccupationCategories]: number;
   },
+  isTestFinished: boolean,
 }
 
 export const initialState: State = {
@@ -25,13 +26,14 @@ export const initialState: State = {
   currentQuestionIndex: 0,
   nextQuestionIndex: 1,
   results: {
-    Realistic: 5,
-    Investigative: 10,
-    Artistic: 20,
-    Social: 1,
-    Enterprising: 2,
-    Conventional: 1,
+    Realistic: 20,
+    Investigative: 12,
+    Artistic: 32,
+    Social: 2,
+    Enterprising: 5,
+    Conventional: 10,
   },
+  isTestFinished: false,
 };
 
 export const mainReducer = (state: State = initialState, action: MainActionType): State  => {
@@ -90,6 +92,11 @@ export const mainReducer = (state: State = initialState, action: MainActionType)
         },
       };
     }
+    case ResultsActionTypes.SetIsTestFinished:
+      return {
+        ...state,
+        isTestFinished: action.payload.isFinished,
+      };
     default:
       return state;
   }

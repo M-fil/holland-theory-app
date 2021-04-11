@@ -10,15 +10,18 @@ interface LinksListProps {
   colors?: { [props: string]: string };
   opacity?: string;
   activeOpacity?: string;
+  onClickLinkItem?: (occupationKey?: OccupationCategories) => void;
 }
 
 const DEFAULT_OPACITY = '0.6';
 const DEFAULT_ACTIVE_OPACITY = '1.0';
+const mockFn = () => {};
 
 const LinksList: React.FC<LinksListProps> = ({
   opacity = DEFAULT_OPACITY,
   activeOpacity = DEFAULT_ACTIVE_OPACITY,
   colors = getOccupationColors(activeOpacity),
+  onClickLinkItem = mockFn,
 }) => {
   const { highlightedColor, setHighlightedColor } = useContext(ResultsContext);
   const { results } = useContext(StoreContext).state;
@@ -53,17 +56,29 @@ const LinksList: React.FC<LinksListProps> = ({
     }
   }, [changeHighlightedColor]);
 
+  const onItemLinkClickHandler = useCallback((event: MouseEvent<HTMLDivElement>) => {
+    const target = event.target as HTMLDivElement;
+    const targetElement = target.closest('[data-occupation-key]') as HTMLDivElement;
+
+    if (targetElement) {
+      const occupationKey = targetElement.dataset.occupationKey;
+      onClickLinkItem(occupationKey as OccupationCategories);
+    }
+  }, [onClickLinkItem]);
+
   return (
     <div
       className='results-links'
       onMouseOver={handleMouseOver}
       onMouseLeave={handleMouseLeave}
+      onClick={onItemLinkClickHandler}
     >
       {resultsList.map(([occupationKey, resultValue]) => (
         <div
           key={occupationKey}
           className='results-links__link result-link-item'
           data-occupation-color={colors[occupationKey]}
+          data-occupation-key={occupationKey}
           style={{
             backgroundColor: colors[occupationKey],
             opacity: compareRGBAValues(highlightedColor as string, colors[occupationKey])

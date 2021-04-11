@@ -1,0 +1,13 @@
+$default-border: 1px solid #000000;
+
+.buttonItem {
+  cursor: pointer;
+
+  font-size: 2rem;
+  line-height: 2.5rem;
+
+  background: none;
+  border: $default-border;
+  border-radius: 5px;
+  padding: 10px 20px;
+}

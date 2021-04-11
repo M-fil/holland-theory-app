@@ -7,3 +7,10 @@ export const updateResultsAction = (
   type: ResultsActionTypes.UpdateResults,
   payload: { occupationKey, value },
 });
+
+export const setIsTestFinishedAction = (
+  isFinished: boolean,
+): ResultActionType => ({
+  type: ResultsActionTypes.SetIsTestFinished,
+  payload: { isFinished },
+});
