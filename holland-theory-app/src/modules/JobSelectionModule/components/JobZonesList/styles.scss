@@ -1,0 +1,21 @@
+$job-zone-item-border: 1px solid #000000;
+
+.job-zones-list {
+  &__item {
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.job-zone-item {
+  cursor: pointer;
+  
+  border: $job-zone-item-border;
+  padding: 5px 15px;
+
+  &__title {
+    font-size: 2rem;
+    line-height: 3rem;
+  }
+}

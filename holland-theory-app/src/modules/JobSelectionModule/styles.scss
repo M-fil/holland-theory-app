@@ -1,0 +1,12 @@
+.job-selection {
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__info-block {
+    font-size: 2rem;
+    line-height: 2.5rem;
+  }
+}
