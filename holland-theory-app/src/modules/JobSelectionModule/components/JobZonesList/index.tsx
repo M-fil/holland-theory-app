@@ -1,6 +1,8 @@
 import './styles.scss';
 import React, { MouseEvent, useCallback } from 'react';
+
 import { JobZoneEntity } from '../../../../core/interfaces/jobs';
+import JobZoneItem from './components/JobZoneItem';
 
 interface JobZonesListProps {
   jobZones: JobZoneEntity[];
@@ -26,16 +28,12 @@ const JobZonesList: React.FC<JobZonesListProps> = ({
       onClick={onJobZoneClickHandler}
     >
       {jobZones.map((jobZone) => (
-        <div
-          key={String(jobZone.value)}
-          className='job-zone-item job-zones-list__item'
-          title={jobZone.education}
-          data-job-zone-value={jobZone.value}
-        >
-          <span className='job-zone-item__title'>
-            {jobZone.title}
-          </span>
-        </div>
+        <JobZoneItem
+          key={jobZone.value}
+          value={jobZone.value}
+          tooltipText={jobZone.education}
+          title={jobZone.title}
+        />
       ))}
     </div>
   );

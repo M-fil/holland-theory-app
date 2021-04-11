@@ -11,7 +11,7 @@ const JobSelectionModule: React.FC = () => {
   const [t] = useTranslation();
   const [jobZones, setJobZones] = useState<JobZoneEntity[]>([]);
   const [targetJobZoneIndex, setTargetJobZoneIndex] = useState<number>(0);
-  const [isInfoModalVisible, setIsInfoModalVisible] = useState<boolean>(true);
+  const [isInfoModalVisible, setIsInfoModalVisible] = useState<boolean>(false);
   const targetJobZone = useMemo(() => jobZones && jobZones[targetJobZoneIndex], [jobZones, targetJobZoneIndex]);
 
   useEffect(() => {
@@ -46,13 +46,13 @@ const JobSelectionModule: React.FC = () => {
       />
       <div className='job-selection__wrapper'>
         <div className='job-selection__info-block'>
-          {t('job-selection.job-zones-tutorial')}
+            {t('job-selection.job-zones-tutorial')}
+          </div>
+          <JobZonesList
+            jobZones={jobZones}
+            onJobZoneClick={onJobZoneClick}
+          />
         </div>
-        <JobZonesList
-          jobZones={jobZones}
-          onJobZoneClick={onJobZoneClick}
-        />
-      </div>
     </div>
   );
 };

@@ -5,7 +5,8 @@
     "confirm-button": "Okay"
   },
   "results-page": {
-    "continue-button": "Go to Job Zones"
+    "next-button": "Next",
+    "prev-button": "Back"
   },
   "job-selection": {
     "subtitles": {

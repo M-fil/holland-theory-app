@@ -8,8 +8,8 @@ import * as ColorsUtils from '../../../../core/utils/colors';
 
 const DEFAULT_PIE_OPACITY = '0.6';
 const DEFAULT_PIE_ACTIVE_OPACITY = '1.0';
-const DEFAULT_PIE_WIDTH = 600;
-const DEFAULT_PIE_HEIGHT = 250;
+const DEFAULT_PIE_WIDTH = 400;
+const DEFAULT_PIE_HEIGHT = 200;
 
 interface ChartBlockProps {
   opacity?: string;

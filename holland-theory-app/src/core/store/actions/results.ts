@@ -14,3 +14,15 @@ export const setIsTestFinishedAction = (
   type: ResultsActionTypes.SetIsTestFinished,
   payload: { isFinished },
 });
+
+export const updateCurrentResultsSectionIndex = (
+  value?: number | null, switchTo?: 'prev' | 'next',
+): ResultActionType => ({
+  type: ResultsActionTypes.UpdateCurrentResultSectionIndex,
+  payload: { switchTo, value }
+});
+
+export const selectJobZoneAction = (value: number): ResultActionType => ({
+  type: ResultsActionTypes.SelectJobZone,
+  payload: { value },
+})

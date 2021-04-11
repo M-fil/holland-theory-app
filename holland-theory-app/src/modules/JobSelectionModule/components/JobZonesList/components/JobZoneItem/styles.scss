@@ -1,0 +1,25 @@
+$job-zone-item-border: 1px solid #000000;
+
+.job-zone-item {
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  
+  border: $job-zone-item-border;
+  padding: 0 15px;
+
+  &__title {
+    font-size: 2rem;
+    line-height: 2rem;
+  }
+
+  &__checkbox {
+    margin-right: 10px;
+  }
+
+  &__main-content {
+    flex-grow: 1;
+    padding: 5px 0;
+  }
+}

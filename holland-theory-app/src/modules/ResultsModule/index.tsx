@@ -1,6 +1,5 @@
 import './styles.scss';
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 
 import ChartBlock from './components/Chart';
 import LinksList from './components/LinksList';
@@ -9,10 +8,8 @@ import { ResultsContext } from './constants/context';
 import InfoModal from '../../core/components/Modals/InfoModal';
 import * as JobService from '../../core/services/jobs';
 import { OccupationCategoryDescription } from '../../core/interfaces/jobs';
-import ButtonItem from '../../core/components/ButtonItem';
 
 const ResultsModule: React.FC = () => {
-  const [t] = useTranslation();
   const [highlightedColor, setHighlightedColor] = useState<OccupationCategories | null>(null);
   const contextValue = useMemo(() => ({
     highlightedColor,
@@ -55,8 +52,6 @@ const ResultsModule: React.FC = () => {
     }
   }, [occupationCategoriesDescriptions]);
 
-  const onGoToJobZonesClickHandler = useCallback(() => {}, []);
-
   return (
     <ResultsContext.Provider value={contextValue}>
       <InfoModal
@@ -72,12 +67,6 @@ const ResultsModule: React.FC = () => {
               <ChartBlock />
             </div>
             <LinksList onClickLinkItem={onClickLinkItem} />
-          </div>
-          <div className='results-module__buttons-block'>
-            <ButtonItem
-              title={t('results-page.continue-button')}
-              onClick={onGoToJobZonesClickHandler}
-            />
           </div>
         </div>
       </div>

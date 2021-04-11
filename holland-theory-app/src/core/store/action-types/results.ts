@@ -3,6 +3,8 @@ import { OccupationCategories } from "../../constants/occupation";
 export enum ResultsActionTypes {
   UpdateResults = '[Results] UpdateResults',
   SetIsTestFinished = '[Results] SetIsTestFinished',
+  UpdateCurrentResultSectionIndex = '[Results] UpdateCurrentResultSectionIndex',
+  SelectJobZone = '[Results] SelectJobZone',
 }
 
 export interface UpdateResultsActionType {
@@ -15,5 +17,17 @@ export interface SetIsTestFinishedActionType {
   payload: { isFinished: boolean },
 }
 
+export interface UpdateCurrentResultSectionIndexActionType {
+  type: ResultsActionTypes.UpdateCurrentResultSectionIndex,
+  payload: { value?: number | null, switchTo?: 'next' | 'prev' },
+}
+
+export interface SelectJobZoneActionType {
+  type: ResultsActionTypes.SelectJobZone,
+  payload: { value: number },
+}
+
 export type ResultActionType = UpdateResultsActionType
-  | SetIsTestFinishedActionType;
+  | SetIsTestFinishedActionType
+  | UpdateCurrentResultSectionIndexActionType
+  | SelectJobZoneActionType;

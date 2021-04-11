@@ -4,6 +4,8 @@ import { ResultsActionTypes } from '../action-types/results';
 import { MainActionType } from '../action-types';
 import { AnswerEntity } from '../../interfaces/answer';
 import { OccupationCategories } from '../../constants/occupation';
+import { SectionEntity } from '../../interfaces/sections';
+import { DefaultSections } from '../../constants/sections';
 
 export interface State {
   questions: QuestionEntity[];
@@ -15,7 +17,12 @@ export interface State {
   results: {
     [prop in OccupationCategories]: number;
   },
+  resultsSections: {
+    currentSectionIndex: number,
+    sections: SectionEntity[],
+  },
   isTestFinished: boolean,
+  selectedJobZone: number,
 }
 
 export const initialState: State = {
@@ -33,7 +40,12 @@ export const initialState: State = {
     Enterprising: 5,
     Conventional: 10,
   },
+  resultsSections: {
+    currentSectionIndex: 0,
+    sections: DefaultSections,
+  },
   isTestFinished: false,
+  selectedJobZone: -1,
 };
 
 export const mainReducer = (state: State = initialState, action: MainActionType): State  => {
@@ -96,6 +108,35 @@ export const mainReducer = (state: State = initialState, action: MainActionType)
       return {
         ...state,
         isTestFinished: action.payload.isFinished,
+      };
+    case ResultsActionTypes.UpdateCurrentResultSectionIndex: {
+      const { value, switchTo } = action.payload;
+      const { currentSectionIndex, sections } = state.resultsSections;
+
+      if (switchTo) {
+        return {
+          ...state,
+          resultsSections: {
+            ...state.resultsSections,
+            currentSectionIndex: switchTo === 'next'
+              ? Math.min(currentSectionIndex + 1, sections.length - 1)
+              : Math.max(currentSectionIndex - 1, 0),
+          },
+        };
+      }
+
+      return {
+        ...state,
+        resultsSections: {
+          ...state.resultsSections,
+          currentSectionIndex: value || 0,
+        },
+      };
+    };
+    case ResultsActionTypes.SelectJobZone:
+      return {
+        ...state,
+        selectedJobZone: action.payload.value,
       };
     default:
       return state;
