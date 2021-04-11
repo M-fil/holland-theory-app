@@ -14,10 +14,9 @@ $result-link-text-color: #ffffff;
 .result-link-item {
   cursor: pointer;
   padding: 5px 15px;
-  opacity: 0.8;
 
   &:hover {
-    opacity: 1;
+    opacity: 1 !important;
   }
 
   &__text,

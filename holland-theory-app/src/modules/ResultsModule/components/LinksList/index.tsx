@@ -1,27 +1,74 @@
 import './styles.scss';
-import React, { useContext, useMemo } from 'react';
+import React, { useContext, useMemo, MouseEvent, useCallback } from 'react';
 
 import { StoreContext } from '../../../../core/store';
-import { OccupationColors } from '../../../../core/constants/occupation';
+import { OccupationCategories, getOccupationColors } from '../../../../core/constants/occupation';
+import { ResultsContext } from '../../constants/context';
+import * as ColorsUtils from '../../../../core/utils/colors';
 
 interface LinksListProps {
   colors?: { [props: string]: string };
+  opacity?: string;
+  activeOpacity?: string;
 }
 
+const DEFAULT_OPACITY = '0.6';
+const DEFAULT_ACTIVE_OPACITY = '1.0';
+
 const LinksList: React.FC<LinksListProps> = ({
-  colors = OccupationColors,
+  opacity = DEFAULT_OPACITY,
+  activeOpacity = DEFAULT_ACTIVE_OPACITY,
+  colors = getOccupationColors(activeOpacity),
 }) => {
+  const { highlightedColor, setHighlightedColor } = useContext(ResultsContext);
   const { results } = useContext(StoreContext).state;
   const resultsList = useMemo(() => Object.entries(results), [results]);
 
+  const compareRGBAValues = useCallback((color1: string, color2: string): boolean => {
+    return ColorsUtils.compareRGBAValues(color1, color2, opacity, activeOpacity);
+  }, [opacity, activeOpacity]);
+
+  const changeHighlightedColor = useCallback((value: OccupationCategories | null) => {
+    if (highlightedColor !== value) {
+      setHighlightedColor(value);
+    }
+  }, [highlightedColor, setHighlightedColor]);
+
+  const handleMouseOver = useCallback((event: MouseEvent<HTMLDivElement>) => {
+    const target = (event.target) as HTMLDivElement;
+    const targetElement = target.closest('[data-occupation-color]') as HTMLDivElement;
+
+    if (targetElement) {
+      const targetColor = targetElement.dataset.occupationColor;
+      changeHighlightedColor(targetColor as OccupationCategories);
+    }
+  }, [changeHighlightedColor]);
+
+  const handleMouseLeave = useCallback((event: MouseEvent<HTMLDivElement>) => {
+    const target = (event.target) as HTMLDivElement;
+    const targetElement = target.closest('[data-occupation-color]') as HTMLDivElement;
+
+    if (targetElement) {
+      changeHighlightedColor(null);
+    }
+  }, [changeHighlightedColor]);
+
   return (
-    <div className='results-links'>
+    <div
+      className='results-links'
+      onMouseOver={handleMouseOver}
+      onMouseLeave={handleMouseLeave}
+    >
       {resultsList.map(([occupationKey, resultValue]) => (
         <div
           key={occupationKey}
           className='results-links__link result-link-item'
+          data-occupation-color={colors[occupationKey]}
           style={{
             backgroundColor: colors[occupationKey],
+            opacity: compareRGBAValues(highlightedColor as string, colors[occupationKey])
+              ? activeOpacity
+              : opacity,
           }}
         >
           <span className='result-link-item__text'>
