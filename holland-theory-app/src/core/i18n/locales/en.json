@@ -1,4 +1,17 @@
 {
   "title": "Holland Theory App",
-  "confirm-button": "Confirm"
+  "confirm-button": "Confirm",
+  "info-modal": {
+    "confirm-button": "Okay"
+  },
+  "results-page": {
+    "continue-button": "Go to Job Zones"
+  },
+  "job-selection": {
+    "subtitles": {
+      "education": "Education",
+      "experience": "Experience",
+      "training": "Training"
+    }
+  }
 }

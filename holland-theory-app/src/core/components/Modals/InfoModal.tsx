@@ -1,14 +1,15 @@
 import './styles.scss';
-import React, { useCallback, useMemo } from 'react';
+import React, { ReactNode, useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import ButtonItem from '../ButtonItem';
 
 interface InfoModalProps {
   extraContainerClassName?: string;
   title: string;
-  description: HTMLElement | string;
+  description: ReactNode | string;
   overlayBackground?: string;
-  buttonsBlock?: HTMLElement;
+  buttonsBlock?: ReactNode;
   closeModal?: () => void;
   isVisible: boolean;
 }
@@ -21,6 +22,7 @@ const InfoModal: React.FC<InfoModalProps> = ({
   overlayBackground = DEFAULT_OVERLAY_COLOR,
   buttonsBlock, closeModal = mockFn, isVisible,
 }) => {
+  const [t] = useTranslation();
   const isDescriptionString = useMemo(() => typeof description === 'string', [description]);
 
   const onConfirmButtonClick = useCallback(() => {
@@ -51,7 +53,7 @@ const InfoModal: React.FC<InfoModalProps> = ({
           {buttonsBlock || (
             <div className='info-modal__buttons-block'>
               <ButtonItem
-                title='Okay'
+                title={t('info-modal.confirm-button')}
                 onClick={onConfirmButtonClick}
               />
             </div>

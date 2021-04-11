@@ -1,0 +1,17 @@
+.paragraphItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.paragraphItemTitle {
+  font-size: 2.5rem;
+  line-height: 3rem;
+
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.paragraphItemDescription {
+  font-size: 2rem;
+  line-height: 2.5rem;
+}

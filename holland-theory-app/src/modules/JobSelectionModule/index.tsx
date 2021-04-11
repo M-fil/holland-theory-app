@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import * as JobService from '../../core/services/jobs';
-import InfoModal from '../../core/components/Modals/InfoModal';
 import { JobZoneEntity } from '../../core/interfaces/jobs';
+import JobZoneInfoModal from './components/JobZoneInfoModal';
 
 const JobSelectionModule: React.FC = () => {
   const [jobZones, setJobZones] = useState<JobZoneEntity[]>([]);
-  const firstItem = jobZones && jobZones[0];
+  const [targetJobZoneIndex] = useState<number>(0);
+  const [isInfoModalVisible, setIsInfoModalVisible] = useState<boolean>(true);
+  const targetJobZone = useMemo(() => jobZones && jobZones[targetJobZoneIndex], [jobZones, targetJobZoneIndex]);
 
   useEffect(() => {
     const getJobZones = async () => {
@@ -19,12 +21,16 @@ const JobSelectionModule: React.FC = () => {
     getJobZones();
   }, []);
 
+  const onCloseInfoModal = useCallback(() => {
+    setIsInfoModalVisible(false);
+  }, []);
+
   return (
     <div className='job-selection'>
-      <InfoModal
-        isVisible
-        title={firstItem?.title}
-        description={firstItem?.education}
+      <JobZoneInfoModal
+        isVisible={isInfoModalVisible}
+        closeModal={onCloseInfoModal}
+        jobZone={targetJobZone}
       />
     </div>
   );

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 
 import { StoreContext } from '../../core/store';
 import QuestionModule from '../QuestionModule';
-import ResultsModule from '../ResultsModule';
+import JobSelectionModule from '../JobSelectionModule';
 
 const MainPage: React.FC = () => {
   const { isTestFinished } = useContext(StoreContext).state;
@@ -10,7 +10,7 @@ const MainPage: React.FC = () => {
   return (
     <main>
       {!isTestFinished ? (
-        <ResultsModule />
+        <JobSelectionModule />
       ) : (
         <QuestionModule />
       )}

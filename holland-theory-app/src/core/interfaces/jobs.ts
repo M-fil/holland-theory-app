@@ -6,7 +6,7 @@ export interface JobZoneEntity {
   value: number,
   education: string,
   experience: string,
-  training: string,
+  job_training: string,
 }
 
 export interface OccupationCategoryDescription {
