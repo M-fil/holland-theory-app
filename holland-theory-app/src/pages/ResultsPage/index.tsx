@@ -1,29 +1,55 @@
 import './styles.scss';
-import React, { useCallback, useContext, useMemo } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { SectionIndexes } from '../../core/constants/sections';
 import { StoreContext } from '../../core/store';
 
 import JobSelectionModule from '../../modules/JobSelectionModule';
 import ResultsModule from '../../modules/ResultsModule';
 import ButtonsBlock from '../../core/components/ButtonsBlock';
+import { JobZoneEntity, OccupationCategoryDescription } from '../../core/interfaces/jobs';
+import * as JobService from '../../core/services/jobs';
 
 const ResultsPage: React.FC = () => {
   const { resultsSections } = useContext(StoreContext).state;
   const currentSectionIndex = useMemo(() => resultsSections.currentSectionIndex, [resultsSections.currentSectionIndex]);
+  const [
+    occupationCategoriesDescriptions, setOccupationCategoriesDescriptions,
+  ] = useState<OccupationCategoryDescription[]>([]);
+  const [jobZones, setJobZones] = useState<JobZoneEntity[]>([]);
+
+  useEffect(() => {
+    const getAllData = async () => {
+      const occupationDate = await JobService.getOccupationCategoriesDescriptions();
+      const jobZonesData = await JobService.getAllJobZones();
+
+      if (occupationDate) {
+        setOccupationCategoriesDescriptions(occupationDate);
+      }
+      if (jobZonesData) {
+        setJobZones(jobZonesData);
+      }
+    };
+
+    getAllData();
+  }, []);
 
   const renderSpecificBlock = useCallback(() => {
     switch (currentSectionIndex) {
       case SectionIndexes.Results:
       default:
         return (
-          <ResultsModule />
+          <ResultsModule
+            occupationCategoriesDescriptions={occupationCategoriesDescriptions}
+          />
         );
       case SectionIndexes.JobZones:
         return (
-          <JobSelectionModule />
+          <JobSelectionModule
+            jobZones={jobZones}
+          />
         );
     }
-  }, [currentSectionIndex]);
+  }, [currentSectionIndex, occupationCategoriesDescriptions, jobZones]);
 
   return (
     <div className='results-page'>
