@@ -10,7 +10,7 @@ import { JobZoneEntity, OccupationCategoryDescription } from '../../core/interfa
 import * as JobService from '../../core/services/jobs';
 
 const ResultsPage: React.FC = () => {
-  const { resultsSections } = useContext(StoreContext).state;
+  const { resultsSections, results, selectedJobZone } = useContext(StoreContext).state;
   const currentSectionIndex = useMemo(() => resultsSections.currentSectionIndex, [resultsSections.currentSectionIndex]);
   const [
     occupationCategoriesDescriptions, setOccupationCategoriesDescriptions,
@@ -19,6 +19,7 @@ const ResultsPage: React.FC = () => {
 
   useEffect(() => {
     const getAllData = async () => {
+      await JobService.getJobsByJobZoneAndOccupationCategories(results, selectedJobZone);
       const occupationDate = await JobService.getOccupationCategoriesDescriptions();
       const jobZonesData = await JobService.getAllJobZones();
 
@@ -31,7 +32,7 @@ const ResultsPage: React.FC = () => {
     };
 
     getAllData();
-  }, []);
+  }, [results, selectedJobZone]);
 
   const renderSpecificBlock = useCallback(() => {
     switch (currentSectionIndex) {

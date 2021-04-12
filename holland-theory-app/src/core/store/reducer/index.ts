@@ -45,7 +45,7 @@ export const initialState: State = {
     sections: DefaultSections,
   },
   isTestFinished: false,
-  selectedJobZone: -1,
+  selectedJobZone: 1,
 };
 
 export const mainReducer = (state: State = initialState, action: MainActionType): State  => {

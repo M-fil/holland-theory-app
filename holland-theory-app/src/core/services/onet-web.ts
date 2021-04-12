@@ -32,8 +32,17 @@ class OnetWebService {
     }
   }
 
-  public async makeRequest<T>(path: string = '', query: string = ''): Promise<{ error?: string, data?: T }> {
-    const url = `${this.config.baseURL}${path}?client=${this.userName}&${query}`;
+  public async makeRequest<T>(
+    path: string = '', query: string = '', insertFullPath: boolean = false,
+  ): Promise<{ error?: string, data?: T }> {
+    let url = '';
+    if (!insertFullPath) {
+      url = `${this.config.baseURL}${path}?client=${this.userName}&${query}`;
+    } else {
+      const baseUrlPath = path.slice(0, path.length - 1).replace(this.config.baseURL, '');
+      url = `${baseUrlPath}?client=${this.userName}${query}`;
+    }
+
     try {
       const response = await fetch(url, {
         method: 'GET',
@@ -49,6 +58,11 @@ class OnetWebService {
       }
 
       const result = await response.json();
+
+      if (result?.error) {
+        throw new Error(result.error);
+      }
+
       return { data: result };
     } catch (error: Error | unknown) {
       if (error instanceof Error) {
