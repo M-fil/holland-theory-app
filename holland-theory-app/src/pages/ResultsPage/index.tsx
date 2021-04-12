@@ -6,6 +6,7 @@ import { StoreContext } from '../../core/store';
 import JobSelectionModule from '../../modules/JobSelectionModule';
 import ResultsModule from '../../modules/ResultsModule';
 import ButtonsBlock from '../../core/components/ButtonsBlock';
+import CareersListModule from '../../modules/CareersListModule';
 import { JobZoneEntity, OccupationCategoryDescription } from '../../core/interfaces/jobs';
 import * as JobService from '../../core/services/jobs';
 
@@ -19,7 +20,6 @@ const ResultsPage: React.FC = () => {
 
   useEffect(() => {
     const getAllData = async () => {
-      await JobService.getJobsByJobZoneAndOccupationCategories(results, selectedJobZone);
       const occupationDate = await JobService.getOccupationCategoriesDescriptions();
       const jobZonesData = await JobService.getAllJobZones();
 
@@ -48,6 +48,10 @@ const ResultsPage: React.FC = () => {
           <JobSelectionModule
             jobZones={jobZones}
           />
+        );
+      case SectionIndexes.CareersList:
+        return (
+          <CareersListModule />
         );
     }
   }, [currentSectionIndex, occupationCategoriesDescriptions, jobZones]);

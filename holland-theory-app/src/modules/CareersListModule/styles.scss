@@ -1,0 +1,10 @@
+.careers-list {
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__item {
+    margin-bottom: 20px;
+  }
+}

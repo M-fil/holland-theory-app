@@ -1,0 +1,25 @@
+$career-item-border: 1px solid grey;
+
+.career-item {
+  cursor: pointer;
+  
+  border-bottom: $career-item-border;
+  padding: 10px 15px;
+
+  &__wrapper {
+    display: flex;
+  }
+
+  &__title {
+    font-size: 2rem;
+    line-height: 2.5rem;
+    font-weight: bold;
+  }
+
+  &__fit-text {
+    font-size: 1.5rem;
+    line-height: 2rem;
+
+    margin-right: 5px;
+  }
+}

@@ -56,10 +56,24 @@ export const getJobsByJobZoneAndOccupationCategories = async (
     const jobZoneQueryString = `job_zone=${jobZoneValue}`;
     const resultQueryString = `${interestsQueryString}${jobZoneQueryString}`;
     const careersData = await onetWebService.makeRequest<JobsQueryResult>(Urls.CareersByInterests, resultQueryString);
+    console.log('careersData', careersData);
+    const careerLinks = careersData.data?.career || [];
     const allCareersResult = await Promise.all(
       (careersData.data?.career || []).map((item) => onetWebService.makeRequest<CareerEntity>(item.href, '', true)),
     );
-    const allCareers = allCareersResult.map((career) => career.data) as CareerEntity[];
+    const allCareers = allCareersResult.map((careerItem, index) => {
+      const career = careerItem.data;
+
+      return {
+        also_called: career?.also_called,
+        fit: careerLinks[index].fit,
+        code: career?.code,
+        on_the_job: career?.on_the_job,
+        resources: career?.resources,
+        title: career?.title,
+        what_they_do: career?.what_they_do,
+      };
+    }) as CareerEntity[];
 
     return allCareers;
   } catch {

@@ -3,7 +3,7 @@ import { SectionEntity } from '../interfaces/sections';
 export enum SectionIndexes {
   Results = 0,
   JobZones = 1,
-  JobsList = 2,
+  CareersList = 2,
 }
 
 export const DefaultSections: SectionEntity[] = [
@@ -15,4 +15,8 @@ export const DefaultSections: SectionEntity[] = [
     key: 'job-zones',
     index: SectionIndexes.JobZones,
   },
+  {
+    key: 'careers-list',
+    index: SectionIndexes.CareersList,
+  }
 ];
