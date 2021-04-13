@@ -1,9 +1,9 @@
 import styles from './styles.module.scss';
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 interface ParagraphItemProps {
   title: string;
-  description: string;
+  description: string | ReactNode;
   extraClassName?: string;
 }
 
@@ -15,9 +15,11 @@ const ParagraphItem: React.FC<ParagraphItemProps> = ({
       <span className={styles.paragraphItemTitle}>
         {title}
       </span>
-      <span className={styles.paragraphItemDescription}>
-        {description}
-      </span>
+      {typeof description === 'string' ? (
+        <span className={styles.paragraphItemDescription}>
+          {description}
+        </span>
+      ) : description}
     </p>
   );
 };

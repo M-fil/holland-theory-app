@@ -1,4 +1,5 @@
 import { OccupationCategories } from '../../constants/occupation';
+import { CareerEntity } from '../../interfaces/careers';
 import { ResultActionType, ResultsActionTypes } from '../action-types/results';
 
 export const updateResultsAction = (
@@ -25,4 +26,9 @@ export const updateCurrentResultsSectionIndex = (
 export const selectJobZoneAction = (value: number): ResultActionType => ({
   type: ResultsActionTypes.SelectJobZone,
   payload: { value },
-})
+});
+
+export const setFinalCareers = (careers: CareerEntity[]): ResultActionType => ({
+  type: ResultsActionTypes.SetFinalCareers,
+  payload: { careers },
+});

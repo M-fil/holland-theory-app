@@ -6,6 +6,7 @@ import { AnswerEntity } from '../../interfaces/answer';
 import { OccupationCategories } from '../../constants/occupation';
 import { SectionEntity } from '../../interfaces/sections';
 import { DefaultSections } from '../../constants/sections';
+import { CareerEntity } from '../../interfaces/careers';
 
 export interface State {
   questions: QuestionEntity[];
@@ -23,6 +24,7 @@ export interface State {
   },
   isTestFinished: boolean,
   selectedJobZone: number,
+  resultCareers: CareerEntity[],
 }
 
 export const initialState: State = {
@@ -46,6 +48,7 @@ export const initialState: State = {
   },
   isTestFinished: false,
   selectedJobZone: 1,
+  resultCareers: [],
 };
 
 export const mainReducer = (state: State = initialState, action: MainActionType): State  => {
@@ -137,6 +140,11 @@ export const mainReducer = (state: State = initialState, action: MainActionType)
       return {
         ...state,
         selectedJobZone: action.payload.value,
+      };
+    case ResultsActionTypes.SetFinalCareers:
+      return {
+        ...state,
+        resultCareers: action.payload.careers,
       };
     default:
       return state;

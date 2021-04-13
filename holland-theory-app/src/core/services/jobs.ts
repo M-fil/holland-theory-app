@@ -56,7 +56,6 @@ export const getJobsByJobZoneAndOccupationCategories = async (
     const jobZoneQueryString = `job_zone=${jobZoneValue}`;
     const resultQueryString = `${interestsQueryString}${jobZoneQueryString}`;
     const careersData = await onetWebService.makeRequest<JobsQueryResult>(Urls.CareersByInterests, resultQueryString);
-    console.log('careersData', careersData);
     const careerLinks = careersData.data?.career || [];
     const allCareersResult = await Promise.all(
       (careersData.data?.career || []).map((item) => onetWebService.makeRequest<CareerEntity>(item.href, '', true)),

@@ -7,10 +7,11 @@ interface CareerItemProps {
   code: string;
   isGreetFit: boolean;
   extraClassName?: string;
+  positionInList: number;
 }
 
 const CareerItem: React.FC<CareerItemProps> = ({
-  title, description, code, isGreetFit, extraClassName = '',
+  title, description, code, isGreetFit, extraClassName = '', positionInList,
 }) => {
   return (
     <div
@@ -23,7 +24,7 @@ const CareerItem: React.FC<CareerItemProps> = ({
           {isGreetFit}
         </span>
         <span className='career-item__title'>
-          {title}
+          {`${positionInList}) ${title}`}
         </span>
       </div>
     </div>

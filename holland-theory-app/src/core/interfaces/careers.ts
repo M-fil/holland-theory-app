@@ -5,11 +5,13 @@ export interface CareerLinkEntity {
   title: string,
 }
 
+export type FitType = 'Good' | 'Great';
+
 export interface CareerEntity {
   also_called: {
     title: string[],
   };
-  fit: 'Good' | 'Great',
+  fit: FitType,
   code: string,
   on_the_job: {
     task: string[],

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import InfoModal from '../../../../core/components/Modals/InfoModal';
 import { JobZoneEntity } from '../../../../core/interfaces/jobs';
-import ParagraphItem from '../ParagraphItem';
+import ParagraphItem from '../../../../core/components/ParagraphItem';
 
 interface JobZoneInfoModalProps {
   jobZone: JobZoneEntity;

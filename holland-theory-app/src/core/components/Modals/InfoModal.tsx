@@ -50,15 +50,15 @@ const InfoModal: React.FC<InfoModalProps> = ({
               {description}
             </span>
           ) : description}
-          {buttonsBlock || (
-            <div className='info-modal__buttons-block'>
-              <ButtonItem
-                title={t('info-modal.confirm-button')}
-                onClick={onConfirmButtonClick}
-              />
-            </div>
-          )}
         </div>
+        {buttonsBlock || (
+          <div className='info-modal__buttons-block'>
+            <ButtonItem
+              title={t('info-modal.confirm-button')}
+              onClick={onConfirmButtonClick}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,32 +1,32 @@
 import './styles.scss';
 import React, { useCallback, useContext, useEffect, useState, MouseEvent, useMemo } from 'react';
 
-import { CareerEntity } from '../../core/interfaces/careers';
 import * as JobService from '../../core/services/jobs';
 import { StoreContext } from '../../core/store';
 import CareerItem from './components/CareerItem';
-import InfoModal from '../../core/components/Modals/InfoModal';
+import * as ResultsActions from '../../core/store/actions/results';
+import CareerInfoModal from './components/CareerInfoModal';
 
 const CareersListModule: React.FC = () => {
-  const { results, selectedJobZone } = useContext(StoreContext).state;
-  const [careers, setCareers] = useState<CareerEntity[]>([]);
+  const { results, selectedJobZone, resultCareers: careers } = useContext(StoreContext).state;
+  const { dispatch } = useContext(StoreContext);
   const [selectedCareerIndex, setSelectedCareerIndex] = useState<number>(0);
   const [isModalInfoVisible, setIsModalInfoVisible] = useState<boolean>(false);
   const selectedCareer = useMemo(() => careers && careers[selectedCareerIndex], [careers, selectedCareerIndex]);
 
   useEffect(() => {
     const getCareers = async () => {
-      if (selectedJobZone > 0) {
+      if (selectedJobZone > 0 && careers.length === 0) {
         const careersData = await JobService.getJobsByJobZoneAndOccupationCategories(results, selectedJobZone);
 
         if (Array.isArray(careersData)) {
-          setCareers(careersData);
+          dispatch(ResultsActions.setFinalCareers(careersData));
         }
       }
     };
 
     getCareers();
-  }, [selectedJobZone,  results]);
+  }, [selectedJobZone, results, dispatch, careers]);
 
   const onClickCareerItem = useCallback((event: MouseEvent<HTMLDivElement>) => {
     const target = (event.target) as HTMLDivElement;
@@ -52,17 +52,23 @@ const CareersListModule: React.FC = () => {
       className='careers-list'
       onClick={onClickCareerItem}
     >
-      <InfoModal
-        isVisible={isModalInfoVisible}
-        closeModal={closeInfoModal}
-        title={selectedCareer?.title}
-        description={selectedCareer?.what_they_do}
-      />
+      {selectedCareer && (
+        <CareerInfoModal
+          isVisible={isModalInfoVisible}
+          closeModal={closeInfoModal}
+          title={selectedCareer.title}
+          alsoCalled={selectedCareer.also_called.title}
+          fit={selectedCareer.fit}
+          tasks={selectedCareer.on_the_job.task}
+          whatTheyDoText={selectedCareer.what_they_do}
+        />
+      )}
       <div className='careers-list__wrapper'>
-        {careers.map((career) => (
+        {careers.map((career, index) => (
           <CareerItem
             key={career.code}
             code={career.code}
+            positionInList={index + 1}
             title={career.title}
             description={career.what_they_do}
             isGreetFit={career.fit === 'Great'}

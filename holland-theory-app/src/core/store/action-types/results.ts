@@ -1,10 +1,12 @@
 import { OccupationCategories } from "../../constants/occupation";
+import { CareerEntity } from "../../interfaces/careers";
 
 export enum ResultsActionTypes {
   UpdateResults = '[Results] UpdateResults',
   SetIsTestFinished = '[Results] SetIsTestFinished',
   UpdateCurrentResultSectionIndex = '[Results] UpdateCurrentResultSectionIndex',
   SelectJobZone = '[Results] SelectJobZone',
+  SetFinalCareers = '[Results] SetFinalCareers',
 }
 
 export interface UpdateResultsActionType {
@@ -27,7 +29,13 @@ export interface SelectJobZoneActionType {
   payload: { value: number },
 }
 
+export interface SetFinalCareersActionType {
+  type: ResultsActionTypes.SetFinalCareers,
+  payload: { careers: CareerEntity[] },
+}
+
 export type ResultActionType = UpdateResultsActionType
   | SetIsTestFinishedActionType
   | UpdateCurrentResultSectionIndexActionType
-  | SelectJobZoneActionType;
+  | SelectJobZoneActionType
+  | SetFinalCareersActionType;
