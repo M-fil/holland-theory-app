@@ -1,0 +1,13 @@
+.question-modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    height: 100% !important;
+  }
+}

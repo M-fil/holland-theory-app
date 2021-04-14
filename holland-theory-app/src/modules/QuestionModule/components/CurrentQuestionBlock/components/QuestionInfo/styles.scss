@@ -1,0 +1,30 @@
+$color-block-size: 50px;
+
+.current-question-main-info {
+  display: flex;
+  align-items: center;
+
+  margin-bottom: 20px;
+
+  &__color-block {
+    width: $color-block-size;
+    height: $color-block-size;
+    min-width: $color-block-size;
+    min-height: $color-block-size;
+    max-width: $color-block-size;
+    max-height: $color-block-size;
+
+    margin-right: 20px;
+
+    .color-block__inside {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
+  }
+
+  &__question-text {
+    font-size: 2rem;
+    line-height: 2.5rem;
+  }
+}

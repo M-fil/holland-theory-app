@@ -1,3 +1,4 @@
+import './styles.scss';
 import React, { useContext, useEffect } from 'react';
 
 import { StoreContext } from '../../core/store';
@@ -26,7 +27,10 @@ const QuestionModule: React.FC = () => {
   }, [dispatch]);
 
   return (
-    <MainWrapper>
+    <MainWrapper
+      extraMainBlockClassName='question-modal'
+      extraContentClassName='question-modal__content'
+    >
       <CurrentQuestionBlock />
       <QuestionsList />
     </MainWrapper>

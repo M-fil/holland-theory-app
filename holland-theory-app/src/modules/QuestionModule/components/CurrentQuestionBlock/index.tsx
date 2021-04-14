@@ -81,39 +81,41 @@ const CurrentQuestionBlock: React.FC = () => {
             />
             <ProgressBar
               currentValue={nextQuestionIndex - 1}
-              endValue={5}
+              endValue={totalNumberOfQuestions}
             />
           </>
         )}
       </div>
-      {currentQuestion && (
-        <QuestionInfo
-          questionText={currentQuestion.text}
-          occupationArea={currentQuestion.area}
-        />
-      )}
-      <AnswersList
-        answerVariants={answerVariants}
-        handleSelectedValue={onAnswerValueChange}
-        currentAnswerValue={currentAnswerValue}
-        currentQuestionArea={currentQuestion?.area}
-      />
-      <ButtonBlock>
-        {showFinishTestButton ? (
-          <ButtonItem
-            title={t('finish-test-button')}
-            onClick={onFinishTestClickHandler}
-          />
-        ) : (
-          <ButtonItem
-            title={t('confirm-button')}
-            onClick={onConfirmAnswer}
-            otherButtonProps={{
-              disabled: isContinueButtonDisabled,
-            }}
+      <div className='current-question-block__main-content'>
+        {currentQuestion && (
+          <QuestionInfo
+            questionText={currentQuestion.text}
+            occupationArea={currentQuestion.area}
           />
         )}
-      </ButtonBlock>
+        <AnswersList
+          answerVariants={answerVariants}
+          handleSelectedValue={onAnswerValueChange}
+          currentAnswerValue={currentAnswerValue}
+          currentQuestionArea={currentQuestion?.area}
+        />
+        <ButtonBlock>
+          {showFinishTestButton ? (
+            <ButtonItem
+              title={t('finish-test-button')}
+              onClick={onFinishTestClickHandler}
+            />
+          ) : (
+            <ButtonItem
+              title={t('confirm-button')}
+              onClick={onConfirmAnswer}
+              otherButtonProps={{
+                disabled: isContinueButtonDisabled,
+              }}
+            />
+          )}
+        </ButtonBlock>
+      </div>
     </div>
   );
 };
