@@ -9,7 +9,7 @@ const MainPage: React.FC = () => {
 
   return (
     <>
-      {!isTestFinished ? (
+      {isTestFinished ? (
         <ResultsPage />
       ) : (
         <QuestionModule />

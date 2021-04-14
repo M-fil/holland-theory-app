@@ -15,6 +15,7 @@ export interface State {
   answerVariants: AnswerEntity[];
   currentQuestionIndex: number;
   nextQuestionIndex: number,
+  isAllQuestionsWereLoaded: boolean,
   results: {
     [prop in OccupationCategories]: number;
   },
@@ -34,6 +35,7 @@ export const initialState: State = {
   answerVariants: [],
   currentQuestionIndex: 0,
   nextQuestionIndex: 1,
+  isAllQuestionsWereLoaded: false,
   results: {
     Realistic: 20,
     Investigative: 12,
@@ -95,6 +97,20 @@ export const mainReducer = (state: State = initialState, action: MainActionType)
           : state.nextQuestionIndex + 1,
       };
     };
+    case QuestionsActionTypes.UpdateQuestions: {
+      const { questions: newQuestions, nextQuestionsLink } = action.payload;
+      const { totalNumberOfQuestions, questions } = state;
+
+      return {
+        ...state,
+        questions: [
+          ...state.questions,
+          ...newQuestions,
+        ],
+        nextQuestionsLink,
+        isAllQuestionsWereLoaded: totalNumberOfQuestions === questions.length,
+      };
+    }
     case ResultsActionTypes.UpdateResults: {
       const { occupationKey, value } = action.payload;
       const currentOccupationValue = state.results[occupationKey];

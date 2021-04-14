@@ -39,8 +39,13 @@ class OnetWebService {
     if (!insertFullPath) {
       url = `${this.config.baseURL}${path}?client=${this.userName}&${query}`;
     } else {
+      const hasQuery = path.includes('?')
       const baseUrlPath = path.slice(0, path.length - 1).replace(this.config.baseURL, '');
-      url = `${baseUrlPath}?client=${this.userName}${query}`;
+      if (hasQuery) {
+        url = `${path}&client=${this.userName}`;
+      } else {
+        url = `${baseUrlPath}?client=${this.userName}${query}`;
+      }
     }
 
     try {

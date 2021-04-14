@@ -7,6 +7,7 @@ export enum QuestionsActionTypes {
   SetCurrentQuestion = '[Questions] SetCurrentQuestion',
   SetAnswerForQuestion = '[Questions] SetAnswerForQuestion',
   SetNextQuestionIndex = '[Question] SetNextQuestionIndex',
+  UpdateQuestions = '[Question] UpdateQuestions',
 }
 
 export interface SetQuestionsDataActionType {
@@ -37,8 +38,14 @@ export interface SetNextQuestionIndexActionType {
   type: QuestionsActionTypes.SetNextQuestionIndex,
 }
 
+export interface UpdateQuestionsActionType {
+  type: QuestionsActionTypes.UpdateQuestions,
+  payload: { questions: QuestionEntity[], nextQuestionsLink: string },
+}
+
 export type QuestionActionType = SetQuestionsDataActionType
   | SetQuestionsActionType
   | SetCurrentQuestionActionType
   | SetAnswerForQuestionActionType
-  | SetNextQuestionIndexActionType;
+  | SetNextQuestionIndexActionType
+  | UpdateQuestionsActionType;

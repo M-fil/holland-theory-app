@@ -8,10 +8,12 @@ import ProgressBar from './components/ProgressBar';
 import QuestionInfo from './components/QuestionInfo';
 import * as QuestionActions from '../../../../core/store/actions/questions';
 import * as ResultsActions from '../../../../core/store/actions/results';
+import * as QuestionService from '../../../../core/services/questions';
 
 const CurrentQuestionBlock: React.FC = () => {
   const {
-    totalNumberOfQuestions, answerVariants, currentQuestionIndex, questions, nextQuestionIndex,
+    totalNumberOfQuestions, answerVariants, currentQuestionIndex, questions,
+    nextQuestionIndex, nextQuestionsLink,
   } = useContext(StoreContext).state;
   const { dispatch } = useContext(StoreContext);
   const [t] = useTranslation();
@@ -21,13 +23,26 @@ const CurrentQuestionBlock: React.FC = () => {
 
   const onConfirmAnswer = useCallback(() => {
     const isAllowToSendAnswer = answer > 0;
+    if (questions.length === nextQuestionIndex) {
+      QuestionService.getNextQuestions(nextQuestionsLink)
+        .then((result) => {
+          if (result) {
+            dispatch(QuestionActions.updateQuestionsAction(
+              result.questions, result.nextQuestionsLink,
+            ));
+          }
+        });
+    }
     if (isAllowToSendAnswer) {
       dispatch(QuestionActions.setNextQuestionIndexAction());
       dispatch(QuestionActions.setCurrentQuestionIndexAction(currentQuestionIndex + 1));
       dispatch(QuestionActions.setAnswerForQuestionAction(answer, currentQuestionIndex));
       dispatch(ResultsActions.updateResultsAction(currentQuestion.area, answer));
     }
-  }, [dispatch, currentQuestionIndex, answer, currentQuestion?.area]);
+  }, [
+    answer, questions.length, nextQuestionIndex, nextQuestionsLink, dispatch,
+    currentQuestionIndex, currentQuestion?.area,
+  ]);
 
   const onAnswerValueChange = useCallback((answerValue: number) => {
     setAnswer(answerValue);

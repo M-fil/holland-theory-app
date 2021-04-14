@@ -24,9 +24,16 @@ interface GetQuestionsResult {
   answerVariants: AnswerEntity[];
 }
 
-export const getQuestions = async (): Promise<GetQuestionsResult | null> => {
+interface GetNextQuestionsResult {
+  questions: QuestionEntity[],
+  nextQuestionsLink: string,
+}
+
+export const getQuestions = async (
+  path = Urls.Questions, insertFullPath: boolean = false,
+): Promise<GetQuestionsResult | null> => {
   try {
-    const result = await onetWebService.makeRequest<QuestionsQueryResult>(Urls.Questions);
+    const result = await onetWebService.makeRequest<QuestionsQueryResult>(path, '', insertFullPath);
     if (result.error) {
       throw new Error(result.error);
     }
@@ -52,6 +59,21 @@ export const getQuestions = async (): Promise<GetQuestionsResult | null> => {
     }
 
     return null;
+  } catch {
+    return null;
+  }
+};
+
+export const getNextQuestions = async (
+  nextQuestionsLink: string,
+): Promise<GetNextQuestionsResult | null> => {
+  try {
+    const result = await getQuestions(nextQuestionsLink as Urls, true);
+
+    return {
+      questions: result?.questions || [],
+      nextQuestionsLink: result?.nextQuestionsLink || '',
+    };
   } catch {
     return null;
   }

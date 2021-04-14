@@ -33,3 +33,10 @@ export const setAnswerForQuestionAction = (
 export const setNextQuestionIndexAction = (): QuestionActionType => ({
   type: QuestionsActionTypes.SetNextQuestionIndex,
 });
+
+export const updateQuestionsAction = (
+  questions: QuestionEntity[], nextQuestionsLink: string,
+): QuestionActionType => ({
+  type: QuestionsActionTypes.UpdateQuestions,
+  payload: { questions, nextQuestionsLink },
+});
