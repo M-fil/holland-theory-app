@@ -1,6 +1,7 @@
 {
   "title": "Holland Theory App",
   "confirm-button": "Confirm",
+  "finish-test-button": "Finish Test",
   "info-modal": {
     "confirm-button": "Okay"
   },

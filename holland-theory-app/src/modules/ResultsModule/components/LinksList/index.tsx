@@ -37,15 +37,25 @@ const LinksList: React.FC<LinksListProps> = ({
     }
   }, [highlightedColor, setHighlightedColor]);
 
+  const checkIfNeedToDoAction = useCallback((targetElement: HTMLDivElement): boolean => {
+    const resultValue = Number(targetElement.dataset.resultValue);
+    return !!(resultValue && resultValue > 0);
+  }, []);
+
   const handleMouseOver = useCallback((event: MouseEvent<HTMLDivElement>) => {
     const target = (event.target) as HTMLDivElement;
     const targetElement = target.closest('[data-occupation-color]') as HTMLDivElement;
 
     if (targetElement) {
-      const targetColor = targetElement.dataset.occupationColor;
-      changeHighlightedColor(targetColor as OccupationCategories);
+      const isNeedToChangeColor = checkIfNeedToDoAction(targetElement);
+      if (isNeedToChangeColor) {
+        const targetColor = targetElement.dataset.occupationColor;
+        changeHighlightedColor(targetColor as OccupationCategories);
+      } else {
+        changeHighlightedColor(null);
+      }
     }
-  }, [changeHighlightedColor]);
+  }, [changeHighlightedColor, checkIfNeedToDoAction]);
 
   const handleMouseLeave = useCallback((event: MouseEvent<HTMLDivElement>) => {
     const target = (event.target) as HTMLDivElement;
@@ -66,6 +76,22 @@ const LinksList: React.FC<LinksListProps> = ({
     }
   }, [onClickLinkItem]);
 
+  const getStylesForItem = useCallback((occupationKey, resultValue) => {
+    if (resultValue === 0) {
+      return {
+        backgroundColor: colors[occupationKey],
+        opacity,
+      };
+    }
+
+    return {
+      backgroundColor: colors[occupationKey],
+      opacity: compareRGBAValues(highlightedColor as string, colors[occupationKey])
+        ? activeOpacity
+        : opacity,
+    };
+  }, [colors, compareRGBAValues, highlightedColor, activeOpacity, opacity]);
+
   return (
     <div
       className='results-links'
@@ -79,12 +105,8 @@ const LinksList: React.FC<LinksListProps> = ({
           className='results-links__link result-link-item'
           data-occupation-color={colors[occupationKey]}
           data-occupation-key={occupationKey}
-          style={{
-            backgroundColor: colors[occupationKey],
-            opacity: compareRGBAValues(highlightedColor as string, colors[occupationKey])
-              ? activeOpacity
-              : opacity,
-          }}
+          data-result-value={resultValue}
+          style={getStylesForItem(occupationKey, resultValue)}
         >
           <span className='result-link-item__text'>
             {occupationKey}

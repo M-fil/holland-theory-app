@@ -20,9 +20,25 @@ const CurrentQuestionBlock: React.FC = () => {
   const currentQuestion = useMemo(() => questions[currentQuestionIndex], [questions, currentQuestionIndex]);
   const [answer, setAnswer] = useState<number>(-1);
   const currentAnswerValue = useMemo(() => !!currentQuestion ? currentQuestion.answerValue : -1, [currentQuestion]);
+  const [showFinishTestButton, setShowFinishTestButton] = useState<boolean>(false);
+
+  const sendAnswer = useCallback(() => {
+    const isAllowToSendAnswer = answer > 0;
+
+    if (isAllowToSendAnswer) {
+      dispatch(QuestionActions.setNextQuestionIndexAction());
+      dispatch(QuestionActions.setCurrentQuestionIndexAction(currentQuestionIndex + 1));
+      dispatch(QuestionActions.setAnswerForQuestionAction(answer, currentQuestionIndex));
+      dispatch(ResultsActions.updateResultsAction(currentQuestion.area, answer));
+    }
+  }, [answer, currentQuestion?.area, currentQuestionIndex, dispatch]);
 
   const onConfirmAnswer = useCallback(() => {
-    const isAllowToSendAnswer = answer > 0;
+    if (nextQuestionIndex >= totalNumberOfQuestions) {
+      setShowFinishTestButton(true);
+    }
+    sendAnswer();
+
     if (questions.length === nextQuestionIndex) {
       QuestionService.getNextQuestions(nextQuestionsLink)
         .then((result) => {
@@ -33,16 +49,11 @@ const CurrentQuestionBlock: React.FC = () => {
           }
         });
     }
-    if (isAllowToSendAnswer) {
-      dispatch(QuestionActions.setNextQuestionIndexAction());
-      dispatch(QuestionActions.setCurrentQuestionIndexAction(currentQuestionIndex + 1));
-      dispatch(QuestionActions.setAnswerForQuestionAction(answer, currentQuestionIndex));
-      dispatch(ResultsActions.updateResultsAction(currentQuestion.area, answer));
-    }
-  }, [
-    answer, questions.length, nextQuestionIndex, nextQuestionsLink, dispatch,
-    currentQuestionIndex, currentQuestion?.area,
-  ]);
+  }, [nextQuestionIndex, totalNumberOfQuestions, sendAnswer, questions.length, nextQuestionsLink, dispatch]);
+
+  const onFinishTestClickHandler = useCallback(() => {
+    dispatch(ResultsActions.setIsTestFinishedAction(true));
+  }, [dispatch]);
 
   const onAnswerValueChange = useCallback((answerValue: number) => {
     setAnswer(answerValue);
@@ -78,12 +89,21 @@ const CurrentQuestionBlock: React.FC = () => {
         currentQuestionArea={currentQuestion?.area}
       />
       <div className='current-question-block__button-block'>
-        <button
-          type='button'
-          onClick={onConfirmAnswer}
-        >
-          {t('confirm-button')}
-        </button>
+        {showFinishTestButton ? (
+          <button
+            type='button'
+            onClick={onFinishTestClickHandler}
+          >
+            {t('finish-test-button')}
+          </button>
+        ) : (
+          <button
+            type='button'
+            onClick={onConfirmAnswer}
+          >
+            {t('confirm-button')}
+          </button>
+        )}
       </div>
     </div>
   );

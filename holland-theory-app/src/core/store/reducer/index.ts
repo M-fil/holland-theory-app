@@ -37,12 +37,12 @@ export const initialState: State = {
   nextQuestionIndex: 1,
   isAllQuestionsWereLoaded: false,
   results: {
-    Realistic: 20,
-    Investigative: 12,
-    Artistic: 32,
-    Social: 2,
-    Enterprising: 5,
-    Conventional: 10,
+    Realistic: 0,
+    Investigative: 0,
+    Artistic: 0,
+    Social: 0,
+    Enterprising: 0,
+    Conventional: 0,
   },
   resultsSections: {
     currentSectionIndex: 0,
@@ -114,6 +114,8 @@ export const mainReducer = (state: State = initialState, action: MainActionType)
     case ResultsActionTypes.UpdateResults: {
       const { occupationKey, value } = action.payload;
       const currentOccupationValue = state.results[occupationKey];
+
+      console.log('occupationKey', occupationKey);
 
       return {
         ...state,

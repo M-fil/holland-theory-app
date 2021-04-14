@@ -46,6 +46,7 @@ const ResultsModule: React.FC<ResultsModuleProps> = ({
   return (
     <ResultsContext.Provider value={contextValue}>
       <InfoModal
+        extraContainerClassName='results-module__info-modal'
         isVisible={isModalInfoVisible}
         closeModal={closeInfoModal}
         title={targetOccupationCategory?.area}
