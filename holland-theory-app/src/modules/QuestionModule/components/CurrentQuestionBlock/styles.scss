@@ -1,0 +1,15 @@
+.current-question-block {
+  &__top-block {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 20px;
+  }
+
+  &__question-number {}
+
+  &__question-number-text {}
+
+  &__button-block {}
+}

@@ -1,0 +1,25 @@
+$block-border: 2px solid #000000;
+$progress-line-color: red;
+$completed-line-color: green;
+$default-progress-bar-width: 100px;
+$default-progress-bar-height: 20px;
+
+.progress-block {
+  &__number-text {}
+
+  &__progress-bar {
+    border: $block-border;
+    width: $default-progress-bar-width;
+    height: $default-progress-bar-height;
+  }
+
+  &__progress-line {
+    transition: 0.2s ease width;
+    background-color: $progress-line-color;
+    height: 100%;
+
+    &_completed {
+      background-color: $completed-line-color;
+    }
+  }
+}

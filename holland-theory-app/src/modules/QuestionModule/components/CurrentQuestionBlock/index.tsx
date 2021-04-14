@@ -6,9 +6,14 @@ import { StoreContext } from '../../../../core/store';
 import AnswersList from './components/AnswersList';
 import ProgressBar from './components/ProgressBar';
 import QuestionInfo from './components/QuestionInfo';
+import ProgressInfoBlock from './components/ProgressInfoBlock';
 import * as QuestionActions from '../../../../core/store/actions/questions';
 import * as ResultsActions from '../../../../core/store/actions/results';
 import * as QuestionService from '../../../../core/services/questions';
+import ButtonBlock from '../../../../core/components/ButtonsBlock';
+import ButtonItem from '../../../../core/components/ButtonItem';
+
+const DEFAULT_ANSWER_VALUE = -1;
 
 const CurrentQuestionBlock: React.FC = () => {
   const {
@@ -16,11 +21,13 @@ const CurrentQuestionBlock: React.FC = () => {
     nextQuestionIndex, nextQuestionsLink,
   } = useContext(StoreContext).state;
   const { dispatch } = useContext(StoreContext);
+  const [showFinishTestButton, setShowFinishTestButton] = useState<boolean>(false);
+  const [answer, setAnswer] = useState<number>(DEFAULT_ANSWER_VALUE);
   const [t] = useTranslation();
   const currentQuestion = useMemo(() => questions[currentQuestionIndex], [questions, currentQuestionIndex]);
-  const [answer, setAnswer] = useState<number>(-1);
   const currentAnswerValue = useMemo(() => !!currentQuestion ? currentQuestion.answerValue : -1, [currentQuestion]);
-  const [showFinishTestButton, setShowFinishTestButton] = useState<boolean>(false);
+  const isLastEnabledQuestionSelected = useMemo(() => currentQuestionIndex === nextQuestionIndex - 1, [nextQuestionIndex, currentQuestionIndex]);
+  const isContinueButtonDisabled = useMemo(() => answer < 0 || !isLastEnabledQuestionSelected, [isLastEnabledQuestionSelected, answer]);
 
   const sendAnswer = useCallback(() => {
     const isAllowToSendAnswer = answer > 0;
@@ -30,6 +37,7 @@ const CurrentQuestionBlock: React.FC = () => {
       dispatch(QuestionActions.setCurrentQuestionIndexAction(currentQuestionIndex + 1));
       dispatch(QuestionActions.setAnswerForQuestionAction(answer, currentQuestionIndex));
       dispatch(ResultsActions.updateResultsAction(currentQuestion.area, answer));
+      setAnswer(DEFAULT_ANSWER_VALUE);
     }
   }, [answer, currentQuestion?.area, currentQuestionIndex, dispatch]);
 
@@ -56,24 +64,26 @@ const CurrentQuestionBlock: React.FC = () => {
   }, [dispatch]);
 
   const onAnswerValueChange = useCallback((answerValue: number) => {
+    if (!isLastEnabledQuestionSelected) {
+      dispatch(QuestionActions.setAnswerForQuestionAction(answerValue, currentQuestionIndex));
+    }
+
     setAnswer(answerValue);
-  }, []);
+  }, [isLastEnabledQuestionSelected, currentQuestionIndex, dispatch]);
 
   return (
     <div className='current-question-block'>
       <div className='current-question-block__top-block'>
-        <div className='current-question-block__question-number'>
-          {currentQuestion && (
-            <span className='current-question-block__question-number-text'>
-              {currentQuestion.index}
-            </span>
-          )}
-        </div>
         {currentQuestion && (
-          <ProgressBar
-            currentValue={nextQuestionIndex + 1}
-            endValue={totalNumberOfQuestions}
-          />
+          <>
+            <ProgressInfoBlock
+              questionIndex={currentQuestion.index}
+            />
+            <ProgressBar
+              currentValue={nextQuestionIndex - 1}
+              endValue={5}
+            />
+          </>
         )}
       </div>
       {currentQuestion && (
@@ -88,23 +98,22 @@ const CurrentQuestionBlock: React.FC = () => {
         currentAnswerValue={currentAnswerValue}
         currentQuestionArea={currentQuestion?.area}
       />
-      <div className='current-question-block__button-block'>
+      <ButtonBlock>
         {showFinishTestButton ? (
-          <button
-            type='button'
+          <ButtonItem
+            title={t('finish-test-button')}
             onClick={onFinishTestClickHandler}
-          >
-            {t('finish-test-button')}
-          </button>
+          />
         ) : (
-          <button
-            type='button'
+          <ButtonItem
+            title={t('confirm-button')}
             onClick={onConfirmAnswer}
-          >
-            {t('confirm-button')}
-          </button>
+            otherButtonProps={{
+              disabled: isContinueButtonDisabled,
+            }}
+          />
         )}
-      </div>
+      </ButtonBlock>
     </div>
   );
 };

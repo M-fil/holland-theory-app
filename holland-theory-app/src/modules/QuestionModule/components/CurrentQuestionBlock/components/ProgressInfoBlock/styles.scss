@@ -1,0 +1,18 @@
+$default-block-width: 50px;
+$default-block-height: 50px;
+$block-border: 2px solid #000000;
+
+.question-number-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: $default-block-width;
+  height: $default-block-height;
+  border: $block-border;
+
+  &__text {
+    font-size: 3rem;
+    line-height: 3.5rem;
+  }
+}

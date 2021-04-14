@@ -9,6 +9,7 @@ import ButtonsBlock from '../../core/components/ButtonsBlock';
 import CareersListModule from '../../modules/CareersListModule';
 import { JobZoneEntity, OccupationCategoryDescription } from '../../core/interfaces/jobs';
 import * as JobService from '../../core/services/jobs';
+import MainWrapper from '../../core/components/MainWrapper';
 
 const ResultsPage: React.FC = () => {
   const { resultsSections, results, selectedJobZone } = useContext(StoreContext).state;
@@ -57,16 +58,13 @@ const ResultsPage: React.FC = () => {
   }, [currentSectionIndex, occupationCategoriesDescriptions, jobZones]);
 
   return (
-    <div className='results-page'>
-      <div className='results-page__wrapper'>
-        <div className='results-page__main-block'>
-          <div className='results-page__content'>
-            {renderSpecificBlock()}
-          </div>
-          <ButtonsBlock />
-        </div>
-      </div>
-    </div>
+    <MainWrapper
+      buttonBlock={(
+        <ButtonsBlock />
+      )}
+    >
+      {renderSpecificBlock()}
+    </MainWrapper>
   );
 };
 
