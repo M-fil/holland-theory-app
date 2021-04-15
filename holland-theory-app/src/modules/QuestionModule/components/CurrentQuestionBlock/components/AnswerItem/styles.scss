@@ -1,0 +1,40 @@
+$answer-image-size: 50px;
+
+.answer-item {
+  position: relative;
+
+  &:hover {
+    .answer-item__title-info {
+      opacity: 1;
+    }
+  }
+
+  &__image {
+    cursor: pointer;
+    width: $answer-image-size;
+    height: $answer-image-size;
+  }
+
+  &__radio-button {
+    display: none;
+  }
+
+  &__title-info {
+    position: absolute;
+    top: -10px;
+    left: 0;
+    right: 0;
+
+    width: fit-content;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: 0.5s ease;
+
+    display: block;
+    opacity: 0;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    text-align: center;
+    white-space: nowrap;
+  }
+}

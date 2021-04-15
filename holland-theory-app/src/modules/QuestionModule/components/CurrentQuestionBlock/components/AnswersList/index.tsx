@@ -1,9 +1,11 @@
+import './styles.scss';
 import React, { ChangeEvent, useCallback, useState, useContext, useEffect } from 'react';
 
 import { AnswerEntity } from '../../../../../../core/interfaces/answer';
 import { StoreContext } from '../../../../../../core/store';
 import * as ResultsActions from '../../../../../../core/store/actions/results';
 import { OccupationCategories } from '../../../../../../core/constants/occupation';
+import AnswerItem from '../AnswerItem';
 
 interface AnswersListProps {
   answerVariants: AnswerEntity[];
@@ -34,7 +36,7 @@ const AnswersList: React.FC<AnswersListProps> = ({
     }
   }, [nextQuestionIndex, currentAnswerValue, currentQuestionIndex, lastEnabledQuestionValue]);
 
-  const onInputSelectHandle = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+  const onAnswerSelectHandle = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     const numberValue = Number(value);
     const isChangedLastEnabledQuestion = currentQuestionIndex === nextQuestionIndex - 1;
@@ -50,21 +52,16 @@ const AnswersList: React.FC<AnswersListProps> = ({
   }, [handleSelectedValue, currentQuestionIndex, nextQuestionIndex, dispatch, currentQuestionArea, selectedValue]);
 
   return (
-    <div className='current-question-block__answer-variants'>
-      {(answerVariants || []).map((answer) => {
-        return (
-          <label key={String(answer.value)}>
-            {answer.name}
-            <input
-              type='radio'
-              name='answers'
-              value={answer.value}
-              onChange={onInputSelectHandle}
-              checked={selectedValue === answer.value}
-            />
-          </label>
-        );
-      })}
+    <div className='answer-variants'>
+      {(answerVariants || []).map((answer) => (
+        <AnswerItem
+          key={String(answer.value)}
+          value={answer.value}
+          name={answer.name}
+          onAnswerSelectHandle={onAnswerSelectHandle}
+          selectedValue={selectedValue}
+        />
+      ))}
     </div>
   );
 };
