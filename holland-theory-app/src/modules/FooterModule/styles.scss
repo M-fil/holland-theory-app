@@ -1,0 +1,25 @@
+$default-link-text: #000000;
+$footer-border: 1px solid #000000;
+
+.footer-module {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 10px 20px;
+  border-top: $footer-border;
+
+  &__developer-name,
+  &__link {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  &__link {
+    color: $default-link-text;
+  }
+
+  &__developer-name {
+    margin: 0;
+  }
+}

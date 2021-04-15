@@ -1,4 +1,10 @@
 .results-module {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  height: 100%;
+
   &__wrapper {
     display: flex;
     flex-direction: column;

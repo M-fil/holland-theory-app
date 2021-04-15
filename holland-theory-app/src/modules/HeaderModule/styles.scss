@@ -1,0 +1,15 @@
+$header-border: 1px solid #000000;
+
+.header-module {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  
+  border-bottom: $header-border;
+
+  &__title {
+    font-size: 2rem;
+    line-height: 2.5rem;
+    margin: 0;
+  }
+}

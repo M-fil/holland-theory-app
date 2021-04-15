@@ -1,6 +1,7 @@
 html {
   font-size: 10px;
   line-height: 10px;
+  overflow: hidden;
 }
 
 body {
@@ -14,7 +15,7 @@ body {
   display: flex;
   flex-direction: column;
 
-  height: 100vh;
+  height: 100%;
 
   & > * {
     flex-grow: 1;

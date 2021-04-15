@@ -67,11 +67,15 @@ export const mainReducer = (state: State = initialState, action: MainActionType)
         ...state,
         questions: action.payload.questions,
       };
-    case QuestionsActionTypes.SetCurrentQuestion:
+    case QuestionsActionTypes.SetCurrentQuestion: {
+      const { currentQuestionIndex } = action.payload;
+      const { totalNumberOfQuestions } = state;
+
       return {
         ...state,
-        currentQuestionIndex: action.payload.currentQuestionIndex,
+        currentQuestionIndex: Math.min(currentQuestionIndex, totalNumberOfQuestions - 1),
       };
+    }
     case QuestionsActionTypes.SetAnswerForQuestion: {
       const { answerValue, questionIndex } = action.payload;
       const targetQuestions = state.questions;

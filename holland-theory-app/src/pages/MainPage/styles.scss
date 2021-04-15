@@ -1,0 +1,7 @@
+#main-block {
+  flex-grow: 1;
+
+  & > * {
+    height: 100%;
+  }
+}

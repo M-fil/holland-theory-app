@@ -5,3 +5,5 @@ export enum Urls {
   CareersByInterests = 'mnm/interestprofiler/careers/',
   SingleCareer = 'mnm/careers/27-4031.00/',
 }
+
+export const DEVELOPER_GITHUB_LINK = 'https://github.com/M-fil';

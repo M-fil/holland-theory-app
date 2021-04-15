@@ -1,5 +1,7 @@
 {
-  "title": "Holland Theory App",
+  "main-title": "The Holland Occupation Test",
+  "developer-name": "Developer: Maksim Filanovich",
+  "github-link-text": "GitHub",
   "confirm-button": "Confirm",
   "finish-test-button": "Finish Test",
   "info-modal": {
