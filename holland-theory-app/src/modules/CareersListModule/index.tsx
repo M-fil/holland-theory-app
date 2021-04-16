@@ -6,16 +6,19 @@ import { StoreContext } from '../../core/store';
 import CareerItem from './components/CareerItem';
 import * as ResultsActions from '../../core/store/actions/results';
 import CareerInfoModal from './components/CareerInfoModal';
+import Loader from '../../core/components/Loader';
 
 const CareersListModule: React.FC = () => {
   const { results, selectedJobZone, resultCareers: careers } = useContext(StoreContext).state;
   const { dispatch } = useContext(StoreContext);
   const [selectedCareerIndex, setSelectedCareerIndex] = useState<number>(0);
   const [isModalInfoVisible, setIsModalInfoVisible] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const selectedCareer = useMemo(() => careers && careers[selectedCareerIndex], [careers, selectedCareerIndex]);
 
   useEffect(() => {
     const getCareers = async () => {
+      setIsLoading(true);
       if (selectedJobZone > 0 && careers.length === 0) {
         const careersData = await JobService.getJobsByJobZoneAndOccupationCategories(results, selectedJobZone);
 
@@ -23,6 +26,8 @@ const CareersListModule: React.FC = () => {
           dispatch(ResultsActions.setFinalCareers(careersData));
         }
       }
+
+      setIsLoading(false);
     };
 
     getCareers();
@@ -52,6 +57,7 @@ const CareersListModule: React.FC = () => {
       className='careers-list'
       onClick={onClickCareerItem}
     >
+      {isLoading && <Loader />}
       {selectedCareer && (
         <CareerInfoModal
           isVisible={isModalInfoVisible}
@@ -71,7 +77,7 @@ const CareersListModule: React.FC = () => {
             positionInList={index + 1}
             title={career.title}
             description={career.what_they_do}
-            isGreetFit={career.fit === 'Great'}
+            fit={career.fit}
             extraClassName='careers-list__item'
           />
         ))}

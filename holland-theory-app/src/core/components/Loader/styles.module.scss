@@ -1,0 +1,27 @@
+@keyframes rotation{
+  from{
+    transform: rotate(0deg);
+  }
+  to{
+    transform: rotate(360deg);
+  }
+}
+
+.loaderContainer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader {
+  border: 7px solid transparent;
+  border-radius: 50%;
+  animation: rotation .8s ease infinite;
+}
+

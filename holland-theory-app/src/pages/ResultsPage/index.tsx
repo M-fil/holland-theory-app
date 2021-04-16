@@ -10,6 +10,7 @@ import CareersListModule from '../../modules/CareersListModule';
 import { JobZoneEntity, OccupationCategoryDescription } from '../../core/interfaces/jobs';
 import * as JobService from '../../core/services/jobs';
 import MainWrapper from '../../core/components/MainWrapper';
+import RestartTestModule from '../../modules/RestartTestModule';
 
 const ResultsPage: React.FC = () => {
   const { resultsSections, results, selectedJobZone } = useContext(StoreContext).state;
@@ -53,6 +54,10 @@ const ResultsPage: React.FC = () => {
       case SectionIndexes.CareersList:
         return (
           <CareersListModule />
+        );
+      case SectionIndexes.RestartTest:
+        return (
+          <RestartTestModule />
         );
     }
   }, [currentSectionIndex, occupationCategoriesDescriptions, jobZones]);

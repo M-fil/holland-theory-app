@@ -5,7 +5,7 @@ export interface CareerLinkEntity {
   title: string,
 }
 
-export type FitType = 'Good' | 'Great';
+export type FitType = 'Best' | 'Great' | 'Good';
 
 export interface CareerEntity {
   also_called: {

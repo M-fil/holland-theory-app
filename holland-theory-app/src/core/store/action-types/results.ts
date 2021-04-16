@@ -7,6 +7,7 @@ export enum ResultsActionTypes {
   UpdateCurrentResultSectionIndex = '[Results] UpdateCurrentResultSectionIndex',
   SelectJobZone = '[Results] SelectJobZone',
   SetFinalCareers = '[Results] SetFinalCareers',
+  RestartTest = '[Results] RestartTest',
 }
 
 export interface UpdateResultsActionType {
@@ -34,8 +35,13 @@ export interface SetFinalCareersActionType {
   payload: { careers: CareerEntity[] },
 }
 
+export interface RestartTestActionType {
+  type: ResultsActionTypes.RestartTest,
+}
+
 export type ResultActionType = UpdateResultsActionType
   | SetIsTestFinishedActionType
   | UpdateCurrentResultSectionIndexActionType
   | SelectJobZoneActionType
-  | SetFinalCareersActionType;
+  | SetFinalCareersActionType
+  | RestartTestActionType;

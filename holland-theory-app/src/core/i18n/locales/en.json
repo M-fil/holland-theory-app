@@ -9,7 +9,9 @@
   },
   "results-page": {
     "next-button": "Next",
-    "prev-button": "Back"
+    "prev-button": "Back",
+    "restart-test": "Restart Test",
+    "thanks-for-test-passing": "Thank you for the test passing! We think you chose the appropriate job for yourself. Do you want to pass test again?"
   },
   "job-selection": {
     "subtitles": {
@@ -26,5 +28,10 @@
       "fit": "Fit",
       "what-they-do": "What do they do?"
     }
+  },
+  "fit": {
+    "great": "Great Fit",
+    "best": "Best Fit",
+    "good": "Good Fit"
   }
 }

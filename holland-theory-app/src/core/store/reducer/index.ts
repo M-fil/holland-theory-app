@@ -7,6 +7,9 @@ import { OccupationCategories } from '../../constants/occupation';
 import { SectionEntity } from '../../interfaces/sections';
 import { DefaultSections } from '../../constants/sections';
 import { CareerEntity } from '../../interfaces/careers';
+import { StorageKeys } from '../../constants/storage';
+import { StorageHandler } from '../storage/StorageHandler';
+import { LocalStorage } from '../storage/types/LocalStorage';
 
 export interface State {
   questions: QuestionEntity[];
@@ -53,20 +56,37 @@ export const initialState: State = {
   resultCareers: [],
 };
 
+export const storageHandler = new StorageHandler(new LocalStorage());
+const stateFromStorage = storageHandler.getValue<State>(StorageKeys.StateKey);
+
 export const mainReducer = (state: State = initialState, action: MainActionType): State  => {
   switch(action.type) {
-    case QuestionsActionTypes.SetQuestionsData:
+    case QuestionsActionTypes.SetQuestionsData: {
+      if (stateFromStorage) {
+        return {
+          ...stateFromStorage,
+        };
+      }
+
       return {
         ...state,
         nextQuestionsLink: action.payload.nextQuestionsLink,
         totalNumberOfQuestions: action.payload.totalNumberOfQuestions,
         answerVariants: action.payload.answerVariants,
       };
-    case QuestionsActionTypes.SetQuestions:
+    }
+    case QuestionsActionTypes.SetQuestions: {
+      if (stateFromStorage) {
+        return {
+          ...stateFromStorage,
+        };
+      }
+
       return {
         ...state,
         questions: action.payload.questions,
       };
+    }
     case QuestionsActionTypes.SetCurrentQuestion: {
       const { currentQuestionIndex } = action.payload;
       const { totalNumberOfQuestions } = state;
@@ -119,8 +139,6 @@ export const mainReducer = (state: State = initialState, action: MainActionType)
       const { occupationKey, value } = action.payload;
       const currentOccupationValue = state.results[occupationKey];
 
-      console.log('occupationKey', occupationKey);
-
       return {
         ...state,
         results: {
@@ -167,6 +185,10 @@ export const mainReducer = (state: State = initialState, action: MainActionType)
       return {
         ...state,
         resultCareers: action.payload.careers,
+      };
+    case ResultsActionTypes.RestartTest:
+      return {
+        ...initialState,
       };
     default:
       return state;

@@ -32,3 +32,7 @@ export const setFinalCareers = (careers: CareerEntity[]): ResultActionType => ({
   type: ResultsActionTypes.SetFinalCareers,
   payload: { careers },
 });
+
+export const restartTestAction = (): ResultActionType => ({
+  type: ResultsActionTypes.RestartTest,
+});
