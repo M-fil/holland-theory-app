@@ -44,7 +44,7 @@ const AnswersList: React.FC<AnswersListProps> = ({
     const value = event.target.value;
     const numberValue = Number(value);
     const isChangedLastEnabledQuestion = currentQuestionIndex === nextQuestionIndex - 1;
-    if (!isChangedLastEnabledQuestion) {
+    if (!isChangedLastEnabledQuestion && selectedValue > 0) {
       const updatedValue = numberValue - selectedValue;
       dispatch(ResultsActions.updateResultsAction(currentQuestionArea, updatedValue));
     }

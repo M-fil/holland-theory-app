@@ -1,4 +1,7 @@
 .careers-list {
+  height: 100%;
+  overflow: auto;
+
   &__wrapper {
     display: flex;
     flex-direction: column;

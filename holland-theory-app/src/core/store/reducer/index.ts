@@ -57,11 +57,11 @@ export const initialState: State = {
 };
 
 export const storageHandler = new StorageHandler(new LocalStorage());
-const stateFromStorage = storageHandler.getValue<State>(StorageKeys.StateKey);
 
 export const mainReducer = (state: State = initialState, action: MainActionType): State  => {
   switch(action.type) {
     case QuestionsActionTypes.SetQuestionsData: {
+      const stateFromStorage = storageHandler.getValue<State>(StorageKeys.StateKey);
       if (stateFromStorage) {
         return {
           ...stateFromStorage,
@@ -76,6 +76,7 @@ export const mainReducer = (state: State = initialState, action: MainActionType)
       };
     }
     case QuestionsActionTypes.SetQuestions: {
+      const stateFromStorage = storageHandler.getValue<State>(StorageKeys.StateKey);
       if (stateFromStorage) {
         return {
           ...stateFromStorage,

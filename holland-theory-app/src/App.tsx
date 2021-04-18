@@ -16,7 +16,9 @@ const App: React.FC = () => {
   }), [state, dispatch]);
 
   useEffect(() => {
-    storageHandler.saveValue<State>(StorageKeys.StateKey, state);
+    if (state.nextQuestionIndex > 1) {
+      storageHandler.saveValue<State>(StorageKeys.StateKey, state);
+    }
   }, [state]);
 
   return (
