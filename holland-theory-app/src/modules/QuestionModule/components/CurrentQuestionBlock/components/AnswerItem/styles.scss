@@ -1,4 +1,7 @@
+@import "../../../../../../core/styles/media.scss";
+
 $answer-image-size: 50px;
+$mobile-answer-image-size: 40px;
 
 .answer-item {
   position: relative;
@@ -13,6 +16,11 @@ $answer-image-size: 50px;
     cursor: pointer;
     width: $answer-image-size;
     height: $answer-image-size;
+
+    @include media-mobile {
+      width: $mobile-answer-image-size;
+      height: $mobile-answer-image-size;
+    }
   }
 
   &__radio-button {
@@ -36,5 +44,9 @@ $answer-image-size: 50px;
     line-height: 2rem;
     text-align: center;
     white-space: nowrap;
+
+    @include media-mobile {
+      display: none;
+    }
   }
 }

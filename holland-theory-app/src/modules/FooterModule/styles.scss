@@ -1,3 +1,5 @@
+@import "../../core/styles/media.scss";
+
 $default-link-text: #000000;
 $footer-border: 1px solid #000000;
 
@@ -8,6 +10,11 @@ $footer-border: 1px solid #000000;
 
   padding: 10px 20px;
   border-top: $footer-border;
+
+  @include media-mobile {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
   &__developer-name,
   &__link {
@@ -21,5 +28,9 @@ $footer-border: 1px solid #000000;
 
   &__developer-name {
     margin: 0;
+
+    @include media-mobile {
+      margin-bottom: 10px;
+    }
   }
 }

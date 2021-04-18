@@ -1,5 +1,5 @@
 import './styles.scss';
-import React, { ChangeEvent, useCallback, useState, useContext, useEffect } from 'react';
+import React, { ChangeEvent, useCallback, useState, useContext, useEffect, useMemo } from 'react';
 
 import { AnswerEntity } from '../../../../../../core/interfaces/answer';
 import { StoreContext } from '../../../../../../core/store';
@@ -21,6 +21,10 @@ const AnswersList: React.FC<AnswersListProps> = ({
   const [lastEnabledQuestionValue, setLastEnabledQuestionValue] = useState(-1);
   const { nextQuestionIndex, currentQuestionIndex } = useContext(StoreContext).state;
   const { dispatch } = useContext(StoreContext);
+  const targetName = useMemo(() => {
+    const targetAnswer = answerVariants.find((answer) => answer.value === selectedValue);
+    return targetAnswer ? targetAnswer.name : '';
+  }, [answerVariants, selectedValue]);
 
   useEffect(() => {
     setLastEnabledQuestionValue(-1);
@@ -53,15 +57,20 @@ const AnswersList: React.FC<AnswersListProps> = ({
 
   return (
     <div className='answer-variants'>
-      {(answerVariants || []).map((answer) => (
-        <AnswerItem
-          key={String(answer.value)}
-          value={answer.value}
-          name={answer.name}
-          onAnswerSelectHandle={onAnswerSelectHandle}
-          selectedValue={selectedValue}
-        />
-      ))}
+      <div className='answer-variants__list'>
+        {(answerVariants || []).map((answer) => (
+          <AnswerItem
+            key={String(answer.value)}
+            value={answer.value}
+            name={answer.name}
+            onAnswerSelectHandle={onAnswerSelectHandle}
+            selectedValue={selectedValue}
+          />
+        ))}
+      </div>
+      <div className='answer-variants__selected-answer'>
+        {targetName}
+      </div>
     </div>
   );
 };

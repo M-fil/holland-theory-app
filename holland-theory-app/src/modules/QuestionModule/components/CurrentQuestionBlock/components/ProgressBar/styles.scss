@@ -1,7 +1,10 @@
+@import "../../../../../../core/styles/media.scss";
+
 $block-border: 2px solid #000000;
 $progress-line-color: #FCEA2A;
 $completed-line-color: green;
 $default-progress-bar-width: 150px;
+$mobile-progress-bar-width: 100px;
 $default-progress-bar-height: 25px;
 
 .progress-block {
@@ -15,6 +18,10 @@ $default-progress-bar-height: 25px;
     border: $block-border;
     width: $default-progress-bar-width;
     height: $default-progress-bar-height;
+
+    @include media-mobile {
+      width: $mobile-progress-bar-width;
+    }
   }
 
   &__progress-line {

@@ -1,5 +1,10 @@
+@import "../../styles/media.scss";
+
+$default-container-width: 70%;
+$default-container-tablet-width: 80%;
 $main-block-border: 1px solid #000000;
 $main-height: 400px;
+$mobile-main-height: 60vh;
 
 .mainContainer {
   display: flex;
@@ -17,17 +22,27 @@ $main-height: 400px;
 .mainBlock {
   border: $main-block-border;
   border-radius: 10px;
-  width: 70%;
+  width: $default-container-width;
   max-width: 100%;
   height: $main-height;
   max-height: 100%;
 
   padding: 20px 25px;
   overflow: hidden;
+
+  @include media-tablet {
+    width: $default-container-tablet-width;
+
+    padding: 15px 10px;
+  }
+
+  @include media-mobile {
+    height: $mobile-main-height;
+  }
 }
 
 .contentBlock {
-  overflow: auto;
+  overflow: hidden;
   flex-grow: 1;
   height: 85%;
 }

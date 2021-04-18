@@ -1,0 +1,25 @@
+$laptop-l-width: 1440px;
+$content-width: 1024px;
+$tablet-width: 720px;
+$mobile-big-width: 426px;
+$mobile-small-width: 320px;
+
+@mixin laptop-l {
+  @media (max-width: $laptop-l-width) { @content; }
+}
+
+@mixin media-laptop {
+  @media (max-width: $content-width) { @content; }
+}
+
+@mixin media-tablet {
+  @media (max-width: $tablet-width) { @content; }
+}
+
+@mixin media-mobile {
+  @media (max-width: $mobile-big-width) { @content; }
+}
+
+@mixin media-mobile-small {
+  @media (max-width: $mobile-small-width) { @content; }
+}

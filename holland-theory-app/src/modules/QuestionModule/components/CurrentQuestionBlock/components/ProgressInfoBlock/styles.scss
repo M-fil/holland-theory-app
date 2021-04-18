@@ -1,5 +1,7 @@
-$default-block-width: 50px;
-$default-block-height: 50px;
+@import "../../../../../../core/styles/media.scss";
+
+$default-block-size: 50px;
+$tablet-block-size: 30px;
 $block-border: 2px solid #000000;
 
 .question-number-block {
@@ -7,12 +9,22 @@ $block-border: 2px solid #000000;
   justify-content: center;
   align-items: center;
 
-  width: $default-block-width;
-  height: $default-block-height;
+  width: $default-block-size;
+  height: $default-block-size;
   border: $block-border;
+
+  @include media-tablet {
+    width: $tablet-block-size;
+    height: $tablet-block-size;
+  }
 
   &__text {
     font-size: 3rem;
     line-height: 3.5rem;
+
+    @include media-tablet {
+      font-size: 2rem;
+      line-height: 2.5rem;
+    }
   }
 }

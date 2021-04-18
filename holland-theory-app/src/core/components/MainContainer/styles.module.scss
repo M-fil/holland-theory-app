@@ -1,4 +1,8 @@
+@import "../../styles/media.scss";
+
 $default-width: 1020px;
+$small-laptop-width: 700px;
+$tablet-container-width: 100%;
 $wrapper-border: 1px solid #000000;
 
 .mainContainer {
@@ -15,4 +19,12 @@ $wrapper-border: 1px solid #000000;
   width: $default-width;
   border-right: $wrapper-border;
   border-left: $wrapper-border;
+
+  @include media-laptop {
+    width: $small-laptop-width;
+  }
+
+  @include media-tablet {
+    width: $tablet-container-width;
+  }
 }

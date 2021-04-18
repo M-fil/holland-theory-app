@@ -1,3 +1,5 @@
+@import "../../core/styles/media.scss";
+
 $header-border: 1px solid #000000;
 
 .header-module {
@@ -7,9 +9,19 @@ $header-border: 1px solid #000000;
   
   border-bottom: $header-border;
 
+  @include media-tablet {
+    justify-content: center;
+  }
+
   &__title {
     font-size: 2rem;
     line-height: 2.5rem;
     margin: 0;
+
+    @include media-tablet {
+      text-align: center;
+
+      font-size: 1.7rem;
+    }
   }
 }

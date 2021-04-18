@@ -1,20 +1,37 @@
+@import "../../../../../../core/styles/media.scss";
+
 $color-block-size: 50px;
+$mobile-color-block-size: 30px;
 
 .current-question-main-info {
   display: flex;
   align-items: center;
 
   margin-bottom: 20px;
+  min-height: 5rem;
+
+  @include media-mobile {
+    min-height: 4rem;
+    margin-bottom: 5px;
+  }
 
   &__color-block {
     width: $color-block-size;
     height: $color-block-size;
     min-width: $color-block-size;
     min-height: $color-block-size;
-    max-width: $color-block-size;
-    max-height: $color-block-size;
 
     margin-right: 20px;
+
+
+    @include media-mobile {
+      width: $mobile-color-block-size;
+      height: $mobile-color-block-size;
+      min-width: $mobile-color-block-size;
+      min-height: $mobile-color-block-size;
+
+      margin-right: 10px;
+    }
 
     .color-block__inside {
       width: 100%;
@@ -26,5 +43,10 @@ $color-block-size: 50px;
   &__question-text {
     font-size: 2rem;
     line-height: 2.5rem;
+
+    @include media-mobile {
+      font-size: 1.6rem;
+      line-height: 2rem;
+    }
   }
 }

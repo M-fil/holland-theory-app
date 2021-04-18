@@ -1,6 +1,13 @@
+@import "../../../../core/styles/media.scss";
+
 .questions-list {
   overflow: hidden;
   padding: 0 20px;
+  height: fit-content;
+
+  @include media-mobile {
+    padding: 0 10px;
+  }
 
   &__wrapper {
     display: flex;

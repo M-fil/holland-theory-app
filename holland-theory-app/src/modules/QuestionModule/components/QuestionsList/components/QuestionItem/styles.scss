@@ -1,6 +1,10 @@
+@import "../../../../../../core/styles/media.scss";
+
 $question-item-size: 80px;
-$question-item-border: 1px solid black;
-$question-item-active-border-width: 3px;
+$tablet-question-item-size: 55px;
+$mobile-question-item-size: 40px;
+$question-item-border: 1px solid #000000;
+$question-item-active-shadow: inset 0 0 0 2px #000000;
 $disabled-background: rgba(255, 255, 255, 0.6);
 
 .question-item {
@@ -13,8 +17,24 @@ $disabled-background: rgba(255, 255, 255, 0.6);
   padding: 10px;
   overflow: hidden;
 
+  @include media-tablet {
+    width: $tablet-question-item-size;
+    height: $tablet-question-item-size;
+    min-width: $tablet-question-item-size;
+    min-height: $tablet-question-item-size;
+  }
+
+  @include media-mobile {
+    width: $mobile-question-item-size;
+    height: $mobile-question-item-size;
+    min-width: $mobile-question-item-size;
+    min-height: $mobile-question-item-size;
+
+    padding: 5px;
+  }
+
   &_active {
-    border-width: $question-item-active-border-width;
+    box-shadow: $question-item-active-shadow;
   }
 
   &_disabled {
@@ -38,6 +58,16 @@ $disabled-background: rgba(255, 255, 255, 0.6);
   &__text {
     font-size: 2rem;
     line-height: 2.5rem;
+
+    @include media-tablet {
+      font-size: 1.5rem;
+      line-height: 2rem;
+    }
+
+    @include media-mobile {
+      font-size: 1rem;
+      line-height: 1rem;
+    }
 
     text-overflow: ellipsis;
     max-width: 100%;

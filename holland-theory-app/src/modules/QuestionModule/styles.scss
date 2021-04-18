@@ -1,7 +1,12 @@
+@import "../../core/styles/media";
+
 .question-modal {
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  @include media-laptop {
+  }
 
   &__content {
     display: flex;
