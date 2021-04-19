@@ -67,6 +67,8 @@ const ResultsPage: React.FC = () => {
       buttonBlock={(
         <ButtonsBlock />
       )}
+      extraMainBlockClassName='results-page'
+      extraContentClassName='results-page__content'
     >
       {renderSpecificBlock()}
     </MainWrapper>

@@ -1,3 +1,5 @@
+@import "../../styles/media.scss";
+
 .paragraphItem {
   display: flex;
   flex-direction: column;
@@ -9,9 +11,19 @@
 
   margin-bottom: 10px;
   font-weight: 600;
+
+  @include media-mobile {
+    font-size: 2rem;
+    line-height: 2.5rem;
+  }
 }
 
 .paragraphItemDescription {
   font-size: 2rem;
   line-height: 2.5rem;
+
+  @include media-mobile {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
 }

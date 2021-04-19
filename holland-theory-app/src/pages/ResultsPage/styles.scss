@@ -5,6 +5,8 @@ $main-block-border: 1px solid #000000;
   flex-direction: column;
   justify-content: center;
 
+  overflow: auto;
+
   &__wrapper {
     display: flex;
     flex-direction: column;
@@ -27,6 +29,7 @@ $main-block-border: 1px solid #000000;
   &__content {
     overflow: auto;
     flex-grow: 1;
-    height: 85%;
+
+    height: initial;
   }
 }
